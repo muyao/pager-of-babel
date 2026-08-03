@@ -1,0 +1,45 @@
+import curses
+import modules.globals as g
+import modules.graphics as gfx
+import modules.help as help
+
+def input_command():
+	# Show characters as user types them
+	curses.echo()
+	# Show cursor
+	curses.curs_set(1)
+
+	# Write a :
+	g.stdscr.addstr(g.MAX_Y - 1, 0, ":")
+	g.stdscr.refresh()
+
+	# Read up to 32 characters of input
+	raw_input = g.stdscr.getstr(g.MAX_Y - 1, 1, 32)
+
+	# Hide typed characters
+	curses.noecho()
+	# Hide cursor
+	curses.curs_set(0)
+
+	# Sanitise input before returning
+	return raw_input.decode('utf-8').strip().lower()
+
+def process_command(command):
+	# Quit if q or quit
+	# Return True to break
+	if command == "q" or command == "quit":
+		return True
+	
+	# Show help screen if help
+	elif command == "h" or command == "help":
+		# Clear screen
+		gfx.clear_screen("Press any key to exit help manual")
+
+		# Show help manual
+		help.show_manual()
+
+		# Wait until another key is pressed
+		g.stdscr.getch()
+
+	# Return false to not break
+	return False

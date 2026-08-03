@@ -17,7 +17,7 @@ def main(s):
 
 	while True:
 		# Clear screen
-		gfx.draw_screen(
+		gfx.draw_base_screen(
 			"Page X",
 			"Press ':' to enter command"
 		)

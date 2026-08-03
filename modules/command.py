@@ -33,7 +33,7 @@ def process_command(command):
 	# Show help screen if help
 	elif command == "h" or command == "help":
 		# Clear screen
-		gfx.draw_screen(
+		gfx.draw_base_screen(
 			"Help Manual",
 			"Press any key to exit help manual"
 		)

@@ -1,12 +1,8 @@
-HELP MANUAL
-
 CONTROLS
 
-	space
-		Next page
+	space	Next page
 	
-	b
-		Previous page
+	b	Previous page
 
 COMMANDS
 

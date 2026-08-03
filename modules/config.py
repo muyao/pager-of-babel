@@ -1,3 +1,1 @@
-import string
-
-ALPHABET = string.ascii_lowercase + " ,."
+ALPHABET = "aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz      ,,,..."

@@ -2,6 +2,7 @@ import curses
 import modules.action_listener as acl
 import modules.globals as g
 import modules.graphics as gfx
+import modules.pages as pg
 
 def main(s):
 	# stdscr is from modules.globals
@@ -18,9 +19,12 @@ def main(s):
 	while True:
 		# Clear screen
 		gfx.draw_base_screen(
-			"Page X",
+			f"Page {pg.current_page}",
 			"Press ':' to enter command"
 		)
+
+		# Babel text can go from row 2 to row g.MAX_Y - 4
+		pg.draw_babel()
 
 		# Listen for key presses. Break if return is True (when should break,
 		# like :q)

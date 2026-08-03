@@ -2,6 +2,8 @@ import curses
 import modules.globals as g
 import modules.graphics as gfx
 import modules.help as help
+import modules.helpers as h
+import modules.pages as pg
 
 def input_command():
 	# Show characters as user types them
@@ -43,6 +45,10 @@ def process_command(command):
 
 		# Wait until another key is pressed
 		g.stdscr.getch()
+
+	elif h.is_int(command):
+		if int(command) >= 0:
+			pg.current_page = int(command)
 
 	# Return false to not break
 	return False

@@ -1,0 +1,7 @@
+HELP MANUAL
+
+	h, help
+		Display this help screen
+
+	q, quit
+		Quit programme

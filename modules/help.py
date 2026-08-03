@@ -1,4 +1,3 @@
-import curses
 import modules.globals as g
 from pathlib import Path
 

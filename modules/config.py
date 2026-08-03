@@ -1,1 +1,1 @@
-ALPHABET = "aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz      ,,,..."
+ALPHABET = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz      ,,,..."

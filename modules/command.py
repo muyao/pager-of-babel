@@ -11,8 +11,8 @@ def input_command():
 	# Show cursor
 	curses.curs_set(1)
 
-	# Write a :
-	g.stdscr.addstr(g.MAX_Y - 1, 0, ":")
+	# Write a ':'
+	g.stdscr.addstr(g.MAX_Y - 1, 0, ':')
 	g.stdscr.refresh()
 
 	# Read up to 32 characters of input
@@ -24,16 +24,16 @@ def input_command():
 	curses.curs_set(0)
 
 	# Sanitise input before returning
-	return raw_input.decode('utf-8').strip().lower()
+	return raw_input.decode("utf-8").strip().lower()
 
 def process_command(command):
 	# Quit if q or quit
 	# Return True to break
-	if command == "q" or command == "quit":
-		return True
+	if command == 'q' or command == "quit":
+		return {"should_break": True}
 	
 	# Show help screen if help
-	elif command == "h" or command == "help":
+	elif command == 'h' or command == "help":
 		# Clear screen
 		gfx.draw_base_screen(
 			"Help Manual",
@@ -51,4 +51,4 @@ def process_command(command):
 			pg.current_page = int(command)
 
 	# Return false to not break
-	return False
+	return {"should_break": False}

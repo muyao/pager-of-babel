@@ -28,7 +28,8 @@ def main(s):
 
 		# Listen for key presses. Break if return is True (when should break,
 		# like :q)
-		if acl.listen_for_actions():
+		actions_return = acl.listen_for_actions()
+		if actions_return["should_break"]:
 			break
 
 if __name__ == "__main__":

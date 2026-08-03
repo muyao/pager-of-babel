@@ -11,14 +11,16 @@ def listen_for_actions():
 		command = cmd.input_command()
 	
 		# Process entered command
-		if cmd.process_command(command):
+		if cmd.process_command(command)["should_break"]:
 
 			# Return True to break
-			return True
+			return {"should_break": True}
 
 	# Next page if space
 	elif key == ord(' '):
 		pg.current_page += 1
+
+		return {"should_break": False}
 
 	# Previous page if b
 	elif key == ord('b'):
@@ -26,5 +28,6 @@ def listen_for_actions():
 		if pg.current_page < 0:
 			pg.current_page = 0
 
-	# Otherwise return False
-	return False
+		return {"should_break": False}
+
+	return {"should_break": False}

@@ -1,6 +1,6 @@
 import modules.globals as g
 
-def clear_screen(info, bottom_prompt):
+def draw_screen(info, bottom_prompt):
 	# Clear screen
 	g.stdscr.clear()
 	

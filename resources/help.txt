@@ -1,7 +1,20 @@
 HELP MANUAL
 
+CONTROLS
+
+	space
+		Next page
+	
+	b
+		Previous page
+
+COMMANDS
+
 	h, help
 		Display this help screen
 
 	q, quit
 		Quit programme
+
+	<any number>
+		Jump to page

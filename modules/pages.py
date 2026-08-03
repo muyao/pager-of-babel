@@ -16,9 +16,6 @@ def draw_babel():
 	for i in range(128):
 		st = h.random(st)
 
-	# Whether it should write the next letter in highcaps
-	should_capitalise = True
-
 	# Iterate through each pixel
 	for y in range(g.MAX_Y - 5):
 		for x in range(g.MAX_X):
@@ -31,29 +28,11 @@ def draw_babel():
 				# buffer
 				text_buffer = h.split_into_bits(st, 6, 0b111111)
 
-			# Use whichever number is at the start of text_buffer. Capitalise
-			# if needed.
-			if should_capitalise:
-				letter = c.ALPHABET[text_buffer[0]].upper()
-			else:
-				letter = c.ALPHABET[text_buffer[0]]
+			# Use whichever number is at the start of text_buffer
+			letter = c.ALPHABET[text_buffer[0]]
 
 			# Delete it from buffer so we don't use it again
 			del text_buffer[0]
 
 			# Write letter
 			g.stdscr.addstr(y + 2, x, letter)
-
-			# Caps logic
-			should_capitalise = False
-			#if letter == ".":
-			#	should_capitalise = True
-			#elif letter != " ":
-			#	should_capitalise = False
-
-
-
-
-
-
-# x*(y-5)

@@ -7,9 +7,7 @@ def show_manual():
 		Path(__file__).resolve().parent.parent / "resources" / "help.txt",
 		"r"
 	) as f:
-		help_text = f.readlines()
+		help_text = f.read()
 
-	for idx, line in enumerate(help_text):
-		g.stdscr.addstr(idx + 1, 0, line.replace("\n", ""))
-
-	g.stdscr.refresh()
+	# Write onto screen
+	g.stdscr.addstr(1, 0, help_text)

@@ -1,4 +1,3 @@
-import curses
 import modules.globals as g
 import modules.graphics as gfx
 from pathlib import Path

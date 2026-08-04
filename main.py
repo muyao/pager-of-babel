@@ -1,5 +1,6 @@
 import base62
 import curses
+import config as c
 import modules.user_keypress as usr
 import modules.globals as g
 import modules.graphics as gfx
@@ -23,9 +24,14 @@ def main(s):
 
 	while g.is_running:
 
+		# In case log name is too long
+		log = base62.encode(pg.current_log)
+		if len(log) > c.MAX_LOG_LENGTH:
+			log = f"{log[:9]}...{log[len(log) - 4:]}"
+
 		# Clear screen
 		gfx.draw_base_screen(
-			f"Log {base62.encode(pg.current_log)} - Page {pg.current_page}"
+			f"Log {log} - Page {pg.current_page}"
 		)
 
 		# Babel text can go from row 2 to row g.MAX_Y - 4

@@ -1,4 +1,3 @@
-import curses
 import modules.globals as g
 
 def draw_base_screen(info, bottom_prompt="", show_colon=True):

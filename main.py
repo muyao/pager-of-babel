@@ -18,7 +18,10 @@ def main(s):
 	# Screen width and height
 	g.MAX_Y, g.MAX_X = g.stdscr.getmaxyx()
 
-	while True:
+	# Loop runs while is_running is True
+	g.is_running = True
+
+	while g.is_running:
 		# Clear screen
 		gfx.draw_base_screen(
 			f"Page {pg.current_page}"
@@ -33,11 +36,8 @@ def main(s):
 		# Refresh screen
 		g.stdscr.refresh()
 
-		# Listen for key presses. Break if return is True (when should break,
-		# like :q)
-		actions_return = acl.listen_for_actions()
-		if actions_return["should_break"]:
-			break
+		# Listen for key presses
+		acl.listen_for_actions()
 
 if __name__ == "__main__":
 	curses.wrapper(main)

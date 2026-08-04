@@ -24,8 +24,8 @@ def input_command():
 def process_command(command):
 	# Quit if q or quit
 	if command == 'q' or command == "quit":
-		# Return True to break
-		return {"should_break": True}
+		# Stop running
+		g.is_running = False
 	
 	# Show help screen if help
 	elif command == 'h' or command == "help":
@@ -35,6 +35,3 @@ def process_command(command):
 	elif h.is_int(command):
 		if int(command) >= 0:
 			pg.current_page = int(command)
-
-	# Return false to not break
-	return {"should_break": False}

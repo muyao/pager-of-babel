@@ -7,8 +7,10 @@ import modules.pages as pg
 def main(s):
 	# stdscr is in modules.globals
 	g.stdscr = s
-	# Hide cursor
-	curses.curs_set(0)
+
+	# Show cursor
+	curses.curs_set(1)
+	g.cursor_visible = 1
 
 	# Pause at stdscr.getch() until key gets pressed
 	g.stdscr.nodelay(False)
@@ -19,12 +21,14 @@ def main(s):
 	while True:
 		# Clear screen
 		gfx.draw_base_screen(
-			f"Page {pg.current_page}",
-			"Press ':' to enter command"
+			f"Page {pg.current_page}"
 		)
 
 		# Babel text can go from row 2 to row g.MAX_Y - 4
 		pg.draw_babel()
+
+		# Move cursor to after the ':'
+		g.stdscr.move(g.MAX_Y - 1, 1)
 
 		# Refresh screen
 		g.stdscr.refresh()

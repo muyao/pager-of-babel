@@ -16,7 +16,7 @@ def draw_babel():
 		st = h.random(st)
 
 	# Iterate through each pixel
-	for y in range(g.MAX_Y - 5):
+	for y in range(g.MAX_Y - 4):
 		for x in range(g.MAX_X):
 
 			# If buffer is empty, generate a new one

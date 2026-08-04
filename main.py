@@ -1,5 +1,5 @@
 import curses
-import modules.action_listener as acl
+import modules.user_keypress as usr
 import modules.globals as g
 import modules.graphics as gfx
 import modules.pages as pg
@@ -36,8 +36,9 @@ def main(s):
 		# Refresh screen
 		g.stdscr.refresh()
 
-		# Listen for key presses
-		acl.listen_for_actions()
+		# Handle key presses
+		key = g.stdscr.getch()
+		usr.handle_keypress(key)
 
 if __name__ == "__main__":
 	curses.wrapper(main)

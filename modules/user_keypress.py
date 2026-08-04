@@ -1,9 +1,7 @@
 import modules.command as cmd
-import modules.globals as g
 import modules.pages as pg
 
-def listen_for_actions():
-	key = g.stdscr.getch()
+def handle_keypress(key):
 	# Let user enter command if key is :
 	if key == ord(':'):
 
@@ -11,16 +9,11 @@ def listen_for_actions():
 		command = cmd.input_command()
 	
 		# Process entered command
-		if cmd.process_command(command)["should_break"]:
-
-			# Return True to break
-			return {"should_break": True}
+		cmd.process_command(command)
 
 	# Next page if space
 	elif key == ord(' '):
 		pg.current_page += 1
-
-		return {"should_break": False}
 
 	# Previous page if b
 	elif key == ord('b'):
@@ -29,7 +22,3 @@ def listen_for_actions():
 		# Make sure page is at least 1
 		if pg.current_page < 1:
 			pg.current_page = 1
-
-		return {"should_break": False}
-
-	return {"should_break": False}

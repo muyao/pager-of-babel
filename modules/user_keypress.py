@@ -1,4 +1,6 @@
+import config as c
 import modules.command as cmd
+import modules.find_screen as find_screen
 import modules.globals as g
 import modules.help_manual as help_manual
 import modules.pages as pg
@@ -17,6 +19,10 @@ def handle_keypress(key):
 	elif key == ord(' '):
 		pg.current_page += 1
 
+		# Page# cannot go past PAGES_PER_LOG
+		if pg.current_page > c.PAGES_PER_LOG:
+			pg.current_page = c.PAGES_PER_LOG
+
 	# Previous page if b
 	elif key == ord('b'):
 		pg.current_page -= 1
@@ -32,3 +38,7 @@ def handle_keypress(key):
 	elif key == ord('h'):
 		# Show help manual
 		help_manual.show_manual()
+
+	elif key == ord('f'):
+		# Find screen
+		find_screen.show_screen()

@@ -1,4 +1,5 @@
 import curses
+import config as c
 import modules.globals as g
 import modules.help_manual as help_manual
 import modules.helpers as h
@@ -12,7 +13,7 @@ def input_command():
 	g.stdscr.addstr(g.MAX_Y - 1, 0, '>')
 
 	# Read up to 32 characters of input
-	raw_input = g.stdscr.getstr(g.MAX_Y - 1, 1, 32)
+	raw_input = g.stdscr.getstr(g.MAX_Y - 1, 1, c.MAX_PAGE_LENGTH)
 
 	# Hide typed characters
 	curses.noecho()

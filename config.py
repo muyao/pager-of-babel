@@ -12,3 +12,9 @@ XOR_SHIFTS = [7, -11, 173]
 
 # How many times it should roll seed
 START_ROLL = 16
+
+# Max page length
+MAX_PAGE_LENGTH = 32
+
+# Amount of pages per log
+PAGES_PER_LOG = 10 ** MAX_PAGE_LENGTH - 1

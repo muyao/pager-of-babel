@@ -6,12 +6,15 @@ import modules.random as rand
 # Track current page
 current_page = 1
 
+# Track current log
+current_log = 74592754928378923457985243794837945837984327958327952437498237
+
 def draw_babel():
 	# Reset buffer
 	text_buffer = []
 
 	# Starting state for seed
-	st = current_page
+	st = c.PAGES_PER_LOG * current_log + current_page
 	# Randomise st a bit first so that st will be large
 	for i in range(c.START_ROLL):
 		st = rand.random(st)

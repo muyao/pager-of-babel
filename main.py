@@ -1,3 +1,4 @@
+import base62
 import curses
 import modules.user_keypress as usr
 import modules.globals as g
@@ -24,7 +25,7 @@ def main(s):
 
 		# Clear screen
 		gfx.draw_base_screen(
-			f"Page {pg.current_page}"
+			f"Log {base62.encode(pg.current_log)} - Page {pg.current_page}"
 		)
 
 		# Babel text can go from row 2 to row g.MAX_Y - 4

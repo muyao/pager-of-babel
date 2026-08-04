@@ -16,11 +16,20 @@ START_ROLL = 16
 # Max page name length
 MAX_PAGE_LENGTH = 3
 
+# Max entry name length
+MAX_ENTRY_LENGTH = 8
+
 # Max log name length
-MAX_LOG_LENGTH = 16
+MAX_LOG_DISPLAY_LENGTH = 10
 
 # Amount of pages per log
-PAGES_PER_LOG = 10 ** MAX_PAGE_LENGTH - 1
+PAGES_PER_ENTRY = 10 ** MAX_PAGE_LENGTH - 1
+
+# Amount of entries per log
+ENTRIES_PER_LOG = 16 ** MAX_ENTRY_LENGTH - 1
 
 # Max length of search phrase
 MAX_SEARCH_LENGTH = 200
+
+# Max length of commands
+MAX_CMD_LENGTH = 32

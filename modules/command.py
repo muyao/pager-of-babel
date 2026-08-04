@@ -14,7 +14,7 @@ def input_command():
 	g.stdscr.addstr(g.MAX_Y - 1, 0, '>')
 
 	# Read up to 32 characters of input
-	raw_input = g.stdscr.getstr(g.MAX_Y - 1, 1, c.MAX_PAGE_LENGTH)
+	raw_input = g.stdscr.getstr(g.MAX_Y - 1, 1, c.MAX_CMD_LENGTH)
 
 	# Hide typed characters
 	curses.noecho()
@@ -34,8 +34,11 @@ def process_command(command):
 		help_manual.show_manual()
 
 	elif h.is_int(command):
-		if int(command) > 0:
-			pg.current_page = int(command)
+		pg.current_page = int(command)
+		if pg.current_page < 1:
+			pg.current_page = 1
+		elif pg.current_page > c.PAGES_PER_ENTRY:
+			pg.current_page = c.PAGES_PER_ENTRY
 
 	elif command == 'f' or command == "find":
 		find.show_find_screen()

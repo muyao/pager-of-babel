@@ -20,8 +20,8 @@ def handle_keypress(key):
 		pg.current_page += 1
 
 		# Page# cannot go past PAGES_PER_LOG
-		if pg.current_page > c.PAGES_PER_LOG:
-			pg.current_page = c.PAGES_PER_LOG
+		if pg.current_page > c.PAGES_PER_ENTRY:
+			pg.current_page = c.PAGES_PER_ENTRY
 
 	# Previous page if b
 	elif key == ord('b'):

@@ -26,12 +26,12 @@ def main(s):
 
 		# In case log name is too long
 		log = base62.encode(pg.current_log)
-		if len(log) > c.MAX_LOG_LENGTH:
-			log = f"{log[:9]}...{log[len(log) - 4:]}"
+		if len(log) > c.MAX_LOG_DISPLAY_LENGTH:
+			log = f"{log[:7]}..."
 
 		# Clear screen
 		gfx.draw_base_screen(
-			f"Log {log} - Page {pg.current_page}"
+			f"Log {log} - Entry {hex(pg.current_entry)} - Page {pg.current_page}"
 		)
 
 		# Babel text can go from row 2 to row g.MAX_Y - 4

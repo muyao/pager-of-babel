@@ -13,7 +13,6 @@ def input_command():
 
 	# Write a ':'
 	g.stdscr.addstr(g.MAX_Y - 1, 0, ':')
-	g.stdscr.refresh()
 
 	# Read up to 32 characters of input
 	raw_input = g.stdscr.getstr(g.MAX_Y - 1, 1, 32)

@@ -10,6 +10,3 @@ def draw_base_screen(info, bottom_prompt):
 
 	# Bottom prompt
 	g.stdscr.addstr(g.MAX_Y - 2, 0, bottom_prompt)
-
-	# Refresh screen
-	g.stdscr.refresh()

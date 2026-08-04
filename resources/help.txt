@@ -1,8 +1,12 @@
 CONTROLS
 
-	space	Next page
-	
 	b	Previous page
+
+	h	Show help manual
+
+	space	Next page
+
+	q	quit
 
 COMMANDS
 

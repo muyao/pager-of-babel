@@ -2,19 +2,26 @@ CONTROLS
 
 	b	Previous page
 
+	f	Find phrase
+
 	h	Show help manual
 
 	space	Next page
 
-	q	quit
+	q	Quit
+
+	:	Enter command
 
 COMMANDS
+
+	f phrase, find phrase
+		Find phrase. Returns 
 
 	h, help
 		Display this help screen
 
 	q, quit
-		Quit programme
+		Quit
 
 	<any number>
 		Jump to page

@@ -15,5 +15,3 @@ def draw_base_screen(info, bottom_prompt="", show_colon=True):
 	# The ':' in the bottom left
 	if show_colon:
 		g.stdscr.addstr(g.MAX_Y - 1, 0, ':')
-
-	curses.curs_set(g.cursor_visible)

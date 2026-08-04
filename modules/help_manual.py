@@ -1,10 +1,11 @@
+import curses
 import modules.globals as g
 import modules.graphics as gfx
 from pathlib import Path
 
 def show_manual():
 	# Hide cursor
-	g.cursor_visible = 0
+	curses.curs_set(0)
 
 	# Clear screen
 	gfx.draw_base_screen(
@@ -25,6 +26,3 @@ def show_manual():
 
 	# Wait until another key is pressed
 	g.stdscr.getch()
-
-	# Show cursor
-	g.cursor_visible = 1

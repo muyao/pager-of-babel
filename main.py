@@ -10,7 +10,6 @@ def main(s):
 
 	# Show cursor
 	curses.curs_set(1)
-	g.cursor_visible = 1
 
 	# Pause at stdscr.getch() until key gets pressed
 	g.stdscr.nodelay(False)
@@ -22,6 +21,7 @@ def main(s):
 	g.is_running = True
 
 	while g.is_running:
+
 		# Clear screen
 		gfx.draw_base_screen(
 			f"Page {pg.current_page}"
@@ -32,6 +32,9 @@ def main(s):
 
 		# Move cursor to after the ':'
 		g.stdscr.move(g.MAX_Y - 1, 1)
+
+		# Show cursor
+		curses.curs_set(1)
 
 		# Refresh screen
 		g.stdscr.refresh()

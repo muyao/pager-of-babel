@@ -1,5 +1,6 @@
 import curses
 import config as c
+import modules.find as find
 import modules.globals as g
 import modules.help_manual as help_manual
 import modules.helpers as h
@@ -35,3 +36,6 @@ def process_command(command):
 	elif h.is_int(command):
 		if int(command) > 0:
 			pg.current_page = int(command)
+
+	elif command == 'f' or command == "find":
+		find.show_find_screen()

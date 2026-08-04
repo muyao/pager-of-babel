@@ -18,3 +18,6 @@ MAX_PAGE_LENGTH = 32
 
 # Amount of pages per log
 PAGES_PER_LOG = 10 ** MAX_PAGE_LENGTH - 1
+
+# Max length of search phrase
+MAX_SEARCH_LENGTH = 400

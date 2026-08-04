@@ -1,6 +1,6 @@
 import config as c
 import modules.command as cmd
-import modules.find_screen as find_screen
+import modules.find as find
 import modules.globals as g
 import modules.help_manual as help_manual
 import modules.pages as pg
@@ -41,4 +41,4 @@ def handle_keypress(key):
 
 	elif key == ord('f'):
 		# Find screen
-		find_screen.show_screen()
+		find.show_find_screen()

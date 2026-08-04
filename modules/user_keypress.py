@@ -1,6 +1,6 @@
 import modules.command as cmd
 import modules.globals as g
-import modules.help as help
+import modules.help_manual as help_manual
 import modules.pages as pg
 
 def handle_keypress(key):
@@ -31,4 +31,4 @@ def handle_keypress(key):
 
 	elif key == ord('h'):
 		# Show help manual
-		help.show_manual()
+		help_manual.show_manual()

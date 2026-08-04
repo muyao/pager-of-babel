@@ -1,6 +1,6 @@
 import curses
 import modules.globals as g
-import modules.help as help
+import modules.help_manual as help_manual
 import modules.helpers as h
 import modules.pages as pg
 
@@ -29,7 +29,7 @@ def process_command(command):
 	# Show help screen if help
 	elif command == 'h' or command == "help":
 		# Show help manual
-		help.show_manual()
+		help_manual.show_manual()
 
 	elif h.is_int(command):
 		if int(command) > 0:

@@ -33,5 +33,5 @@ def process_command(command):
 		help.show_manual()
 
 	elif h.is_int(command):
-		if int(command) >= 0:
+		if int(command) > 0:
 			pg.current_page = int(command)

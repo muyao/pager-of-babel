@@ -1,6 +1,5 @@
 import curses
 import modules.globals as g
-import modules.graphics as gfx
 import modules.help as help
 import modules.helpers as h
 import modules.pages as pg

@@ -18,9 +18,8 @@ def random(st):
 	mask = c.XOR_MASK
 
 	# XOR shifting
-	st = single_xor_shift(st, 7, mask)
-	st = single_xor_shift(st, -11, mask)
-	st = single_xor_shift(st, 173, mask)
+	for k in c.XOR_SHIFTS:
+		st = single_xor_shift(st, k, mask)
 
 	# Return final output
 	return st

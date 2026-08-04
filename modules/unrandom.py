@@ -53,9 +53,10 @@ def reverse_right(s, k):
 	return s
 
 # Reverse xor shift
-def get_seed(s, shifts):
+def get_seed(s):
 	# Reverse so that last shift comes first
-	shifts.reverse()
+	# Avoid using .reverse() because it also reverses XOR_SHIFTS
+	shifts = c.XOR_SHIFTS[::-1]
 
 	# Then, for each shift
 	for k in shifts:

@@ -1,5 +1,5 @@
 # Alphabet to use. Must be 32 chars long
-ALPHABET = "abcdefghijklmnopqrstuvwxyz    ,."
+ALPHABET = "    abcdefghijklmnopqrstuvwxyz,."
 
 # How many bits output by xor shift
 XOR_BIT_LENGTH = 2048

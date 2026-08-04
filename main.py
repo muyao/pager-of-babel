@@ -5,7 +5,7 @@ import modules.graphics as gfx
 import modules.pages as pg
 
 def main(s):
-	# stdscr is from modules.globals
+	# stdscr is in modules.globals
 	g.stdscr = s
 	# Hide cursor
 	curses.curs_set(0)

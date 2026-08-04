@@ -1,6 +1,7 @@
 import config as c
 import modules.globals as g
 import modules.helpers as h
+import modules.random as rand
 
 # Track current page
 current_page = 1
@@ -13,7 +14,7 @@ def draw_babel():
 	st = current_page
 	# Randomise st a bit first so that st will be large
 	for i in range(c.START_ROLL):
-		st = h.random(st)
+		st = rand.random(st)
 
 	# Iterate through each pixel
 	for y in range(g.MAX_Y - 4):
@@ -22,7 +23,7 @@ def draw_babel():
 			# If buffer is empty, generate a new one
 			if len(text_buffer) == 0:
 				# First, generate a very large random number
-				st = h.random(st)
+				st = rand.random(st)
 				# Then, split that number into chunks of 5 bits and write into
 				# buffer.
 				text_buffer = h.split_into_bits(st, 5, c.XOR_BIT_LENGTH)

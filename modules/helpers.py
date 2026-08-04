@@ -1,27 +1,26 @@
-# XOR shift. Default mask is 32 bits
-def xor_shift(st, k, m=0xffffffff):
-	# Left shift if k > 0
-	if k > 0:
-		return (st ^ (st << k)) & m
+import config as c
 
-	# Right shift with positive k if k < 0
-	else:
-		return (st ^ (st >> -k)) & m
+# XOR shift
+def single_xor_shift(st, k, m):
+	# Shift left if k > 0, else shift right
+	shifted = st << k if k > 0 else st >> -k
+
+	# Return
+	return (st ^ shifted) & m
 
 # Generate random number with XOR shift
-def random(seed):
-	# Make sure st is not 0
-	# Negative seeds will generate the same output as positive seeds, keep that
-	# in mind
-	st = abs(seed) + 1
+def random(st):
+	# If state is 0 or negative, throw error
+	if st <= 0:
+		raise Exception("Seed cannot be zero or negative")
 
-	# 5760 bits
-	mask = 0x10 ** 5760 - 1
+	# How many bits long output should be
+	mask = c.XOR_MASK
 
 	# XOR shifting
-	st = xor_shift(st, 7, m=mask)
-	st = xor_shift(st, -11, m=mask)
-	st = xor_shift(st, 173, m=mask)
+	st = single_xor_shift(st, 7, mask)
+	st = single_xor_shift(st, -11, mask)
+	st = single_xor_shift(st, 173, mask)
 
 	# Return final output
 	return st
@@ -30,21 +29,29 @@ def random(seed):
 def is_int(string):
 	try:
 		int(string)
-		return True
 	except:
 		return False
+	return True
 
-# Split a large integer into 4 bit chunks
-def split_into_bits(val, chs, m):
+# Split a large integer into chs bit long chunks
+def split_into_bits(val, chs, tot_bits):
 	chunks = []
-	while val > 0:
+
+	# We track bits left separately in case number starts with 0s
+	bits_left = tot_bits
+
+	# Repeat while we still have bits left
+	while bits_left > 0:
 
 		# Bitwise AND val & m returns chs least sig digits
 		# We use insert to keep most sig digits at the start
-		chunks.insert(0, val & m)
+		chunks.insert(0, val & (2 ** chs - 1))
 
 		# Rightshift to remove those digits
 		val >>= chs
 
-	# Return
-	return chunks
+		# Decrease bits_left by chunk size
+		bits_left -= chs
+
+	# Return without first element because it tends to be less than chs long
+	return chunks[1:]

@@ -25,8 +25,10 @@ def listen_for_actions():
 	# Previous page if b
 	elif key == ord('b'):
 		pg.current_page -= 1
-		if pg.current_page < 0:
-			pg.current_page = 0
+
+		# Make sure page is at least 1
+		if pg.current_page < 1:
+			pg.current_page = 1
 
 		return {"should_break": False}
 

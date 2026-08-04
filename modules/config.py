@@ -1,1 +1,0 @@
-ALPHABET = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz      ,,,...".lower()

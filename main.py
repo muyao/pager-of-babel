@@ -6,7 +6,7 @@ import modules.globals as g
 import modules.graphics as gfx
 import modules.pages as pg
 
-def main(s):
+def main(s: curses.window) -> int:
 	# stdscr is in modules.globals
 	g.stdscr = s
 
@@ -49,6 +49,9 @@ def main(s):
 		# Handle key presses
 		key = g.stdscr.getch()
 		usr.handle_keypress(key)
+
+	# Code executed successfully
+	return 0
 
 if __name__ == "__main__":
 	curses.wrapper(main)

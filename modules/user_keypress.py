@@ -5,7 +5,7 @@ import modules.globals as g
 import modules.help_manual as help_manual
 import modules.pages as pg
 
-def handle_keypress(key):
+def handle_keypress(key: int) -> None:
 	# Let user enter command if key is :
 	if key == ord(':'):
 

@@ -1,9 +1,9 @@
 import hashlib
 import config as c
 
-# Non-reversible round function F using SHA-256. Takes a half-block integer r
-# and a round key, then hashes it to produce a pseudorandom integer of length
-# HALF_BITS
+# Non-reversible round function F
+# Takes a half-block integer r and a round key, then hashes it to produce a
+# pseudorandom integer of length HALF_BITS
 def F(r: int, key: int) -> int:
 	# Convert inputs to bytes
 	r_bytes = r.to_bytes((c.RAND_HALF_BITS + 7) // 8, byteorder="big")

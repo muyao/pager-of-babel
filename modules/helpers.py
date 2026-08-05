@@ -1,5 +1,5 @@
 # Check if a string can be turned into an int
-def is_int(string):
+def is_int(string: str) -> bool:
 	try:
 		int(string)
 	except:
@@ -7,7 +7,7 @@ def is_int(string):
 	return True
 
 # Split a large integer into chs bit long chunks
-def split_into_bits(val, chs, tot_bits):
+def split_into_bits(val: int, chs: int, tot_bits: int) -> list[int]:
 	chunks = []
 
 	# We track bits left separately in case number starts with 0s

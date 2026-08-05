@@ -1,6 +1,11 @@
 import modules.globals as g
 
-def draw_base_screen(info, bottom_prompt="", upper_bottom_prompt="", show_colon=True):
+def draw_base_screen(
+	info: str,
+	bottom_prompt: str="",
+	upper_bottom_prompt: str="",
+	show_colon: bool=True
+) -> None:
 	# Clear screen
 	g.stdscr.clear()
 

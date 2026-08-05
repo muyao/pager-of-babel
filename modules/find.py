@@ -7,7 +7,7 @@ import modules.graphics as gfx
 import modules.pages as pg
 import modules.random as rand
 
-def show_find_screen():
+def show_find_screen() -> None:
 
 	# Clear screen
 	gfx.draw_base_screen(
@@ -40,7 +40,7 @@ def show_find_screen():
 
 	display_found(found_location)
 
-def find(raw_input):
+def find(raw_input: str) -> tuple[int, int, int]:
 
 	# Clear screen
 	gfx.draw_base_screen(
@@ -91,7 +91,7 @@ def find(raw_input):
 
 	return log, entry, page
 
-def display_found(found_location):
+def display_found(found_location: tuple[int, int, int]) -> None:
 
 	log, entry, page = found_location
 

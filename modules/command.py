@@ -22,7 +22,7 @@ def input_command():
 	# Sanitise input before returning
 	return raw_input.decode("utf-8").strip().lower()
 
-def process_command(command):
+def process_command(command: str) -> None:
 	# Quit if q or quit
 	if command == 'q' or command == "quit":
 		# Stop running

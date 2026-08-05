@@ -3,7 +3,7 @@ import modules.globals as g
 import modules.graphics as gfx
 from pathlib import Path
 
-def show_manual():
+def show_manual() -> None:
 	# Hide cursor
 	curses.curs_set(0)
 

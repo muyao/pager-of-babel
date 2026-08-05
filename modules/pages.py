@@ -19,10 +19,6 @@ def draw_babel():
 	# Starting state for seed
 	st = c.PAGES_PER_ENTRY * (c.ENTRIES_PER_LOG * current_log + current_entry) + current_page
 
-	# Randomise st a bit first so that st will be large
-	for i in range(c.START_ROLL):
-		st = rand.random(st)
-
 	# Iterate through each pixel
 	for y in range(g.MAX_Y - 4):
 		for x in range(g.MAX_X):
@@ -33,7 +29,7 @@ def draw_babel():
 				st = rand.random(st)
 				# Then, split that number into chunks of c.ALPHABET_BITS bits and write into
 				# buffer.
-				text_buffer = h.split_into_bits(st, c.ALPHABET_BITS, c.XOR_BIT_LENGTH)
+				text_buffer = h.split_into_bits(st, c.ALPHABET_BITS, c.RAND_OUT_BIT_LENGTH)
 
 			# Use whichever number is at the start of text_buffer
 			letter = c.ALPHABET[text_buffer[0]]

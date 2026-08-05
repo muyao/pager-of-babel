@@ -6,17 +6,20 @@ ALPHABET = "    abcdefghijklmnopqrstuvwxyz,."
 # How many bits long the alphabet is.
 ALPHABET_BITS = int(math.log2(len(ALPHABET)))
 
-# How many bits output by xor shift
-XOR_BIT_LENGTH = 1024
+# How many bits outputted by random
+RAND_OUT_BIT_LENGTH = 32768
 
-# XOR mask to only take lowest bits
-XOR_MASK = 2 ** XOR_BIT_LENGTH - 1
+# Half len
+RAND_HALF_BITS = RAND_OUT_BIT_LENGTH // 2
 
-# How much it should shift. Positive values are left shift
-XOR_SHIFTS = [7, -11, 173]
+# Half mask
+RAND_HALF_MASK = (1 << RAND_HALF_BITS) - 1
 
-# How many times it should roll seed
-START_ROLL = 16
+# Rand rounds for prng
+RAND_ROUNDS = 4
+
+# Keys for PRNG
+RAND_ROUND_KEYS = [0x1a2b3c4d, 0x5e6f7abb, 0x9c0d1e2f, 0x3a4b5c6d]
 
 # Max page name length
 MAX_PAGE_LENGTH = 3

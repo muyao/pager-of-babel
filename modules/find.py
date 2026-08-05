@@ -5,7 +5,7 @@ import config as c
 import modules.globals as g
 import modules.graphics as gfx
 import modules.pages as pg
-import modules.unrandom as unrand
+import modules.random as rand
 
 def show_find_screen():
 
@@ -66,7 +66,7 @@ def find(raw_input):
 	# Start with a space so that phrase is separated
 	sanitised_input_list.append(0)
 	tmp_range = range(
-		int(c.XOR_BIT_LENGTH / c.ALPHABET_BITS) - len(sanitised_input_list) - 1
+		int(c.RAND_OUT_BIT_LENGTH / c.ALPHABET_BITS) - len(sanitised_input_list) - 1
 	)
 	sanitised_input_list += [
 		random.randint(0, len(c.ALPHABET) - 1) for i in tmp_range
@@ -79,9 +79,8 @@ def find(raw_input):
 		s += alpha_idx
 	s <<= c.ALPHABET_BITS
 
-	# Find seed of wanted
-	for i in range(c.START_ROLL + 1):
-		s = unrand.get_seed(s)
+	# Find seed
+	s = rand.unrandom(s)
 
 	# Turn seed into page, entry and log
 	page = s % c.PAGES_PER_ENTRY

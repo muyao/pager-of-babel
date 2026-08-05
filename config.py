@@ -15,6 +15,9 @@ RAND_HALF_BITS = RAND_OUT_BIT_LENGTH // 2
 # Half mask
 RAND_HALF_MASK = (1 << RAND_HALF_BITS) - 1
 
+# Half bytes
+RAND_HALF_BYTES = (RAND_HALF_BITS + 7) // 8
+
 # Rand rounds for prng
 RAND_ROUNDS = 4
 

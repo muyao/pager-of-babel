@@ -6,15 +6,14 @@ import config as c
 # pseudorandom integer of length HALF_BITS
 def F(r: int, key: int) -> int:
 	# Convert inputs to bytes
-	r_bytes = r.to_bytes((c.RAND_HALF_BITS + 7) // 8, byteorder="big")
+	r_bytes = r.to_bytes(c.RAND_HALF_BYTES, byteorder="big")
 	k_bytes = key.to_bytes(4, byteorder="big")
 
 	# Hash using SHA-256 (extending via counter if more bits are needed)
 	output_bytes = bytearray()
 	counter = 0
-	needed_bytes = (c.RAND_HALF_BITS + 7) // 8
 
-	while len(output_bytes) < needed_bytes:
+	while len(output_bytes) < c.RAND_HALF_BYTES:
 		h = hashlib.sha256(
 			r_bytes
 			+ k_bytes
@@ -24,7 +23,7 @@ def F(r: int, key: int) -> int:
 		counter += 1
 
 	# Convert back to an integer masked to exact half bit-length
-	res = int.from_bytes(output_bytes[:needed_bytes], byteorder="big")
+	res = int.from_bytes(output_bytes[:c.RAND_HALF_BYTES], byteorder="big")
 	return res & c.RAND_HALF_MASK
 
 
@@ -37,7 +36,7 @@ def random(s: int) -> int:
 	for round_idx in range(c.RAND_ROUNDS):
 		key = c.RAND_ROUND_KEYS[round_idx]
 		next_L = R
-		next_R = L ^ F(R, key)
+		next_R = (L ^ F(R, key)) & c.RAND_HALF_MASK
 		L, R = next_L, next_R
 
 	# Combine halves back into a single integer
@@ -52,7 +51,7 @@ def unrandom(s: int) -> int:
 	for round_idx in reversed(range(c.RAND_ROUNDS)):
 		key = c.RAND_ROUND_KEYS[round_idx]
 		prev_R = L
-		prev_L = R ^ F(prev_R, key)
+		prev_L = (R ^ F(prev_R, key)) & c.RAND_HALF_MASK
 		L, R = prev_L, prev_R
 
 	# Combine halves back into original integer

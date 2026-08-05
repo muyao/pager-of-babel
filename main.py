@@ -7,17 +7,13 @@ import modules.graphics as gfx
 import modules.pages as pg
 
 def main(s: curses.window) -> int:
-	# stdscr is in modules.globals
-	g.stdscr = s
+	g.init(s)
 
 	# Show cursor
 	curses.curs_set(1)
 
 	# Pause at stdscr.getch() until key gets pressed
 	g.stdscr.nodelay(False)
-
-	# Screen width and height
-	g.MAX_Y, g.MAX_X = g.stdscr.getmaxyx()
 
 	# Loop runs while is_running is True
 	g.is_running = True

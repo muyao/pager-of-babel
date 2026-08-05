@@ -7,6 +7,9 @@ stdscr = None
 header_win = None
 title_win = None
 info_win = None
+babel_win = None
+find_win = None
+footer_win = None
 MAX_X = None
 MAX_Y = None
 is_running = None
@@ -37,6 +40,15 @@ def init(s: curses.window) -> None:
 		0,
 		h.true_len(c.TITLE) + 1
 	)
+
+	global babel_win
+	babel_win = stdscr.subwin(MAX_Y - 3, MAX_X, 2, 0)
+
+	global find_win
+	find_win = stdscr.subwin(MAX_Y - 4, MAX_X, 2, 0)
+
+	global footer_win
+	footer_win = stdscr.subwin(1, MAX_X, MAX_Y - 1, 0)
 
 	# Is running
 	global is_running

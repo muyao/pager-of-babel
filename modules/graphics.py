@@ -88,3 +88,7 @@ def draw_info() -> None:
 def draw_title() -> None:
 	g.title_win.clear()
 	addstrf(g.title_win, 0, 0, c.TITLE)
+
+def draw_footer() -> None:
+	g.footer_win.clear()
+	g.footer_win.addstr(0, 0, ":")

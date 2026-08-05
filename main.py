@@ -21,6 +21,7 @@ def main(s: curses.window) -> int:
 		# Graphics stuff
 		gfx.draw_title()
 		gfx.draw_info()
+		gfx.draw_footer()
 
 		# Babel text can go from row 2 to row g.MAX_Y - 4
 		pg.draw_babel()
@@ -32,7 +33,9 @@ def main(s: curses.window) -> int:
 		curses.curs_set(1)
 
 		# Refresh screen
-		g.stdscr.refresh()
+		g.info_win.refresh()
+		g.babel_win.refresh()
+		g.footer_win.refresh()
 
 		# Handle key presses
 		key = g.stdscr.getch()

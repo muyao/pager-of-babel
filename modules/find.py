@@ -21,11 +21,8 @@ def show_find_screen() -> None:
 	# Show cursor
 	curses.curs_set(1)
 
-	# Create subwindow
-	win = g.stdscr.subwin(g.MAX_Y - 4, g.MAX_X, 2, 0)
-
 	# Wrap the window in a Textbox box manager
-	box = Textbox(win, insert_mode=True)
+	box = Textbox(g.find_win, insert_mode=True)
 
 	# Allow user to edit
 	box.edit(h.terminate_check)

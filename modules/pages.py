@@ -32,12 +32,12 @@ def draw_babel() -> None:
 	st = c.PAGES_PER_ENTRY * (c.ENTRIES_PER_LOG * current_log + current_entry)
 	st += current_page
 
-	# Create subwindow, 1 row more than needed (bottom right corner)
-	win = g.stdscr.subwin(g.MAX_Y - 3, g.MAX_X, 2, 0)
 	# Max y x
-	max_y, max_x = win.getmaxyx()
+	max_y, max_x = g.babel_win.getmaxyx()
 	# Decrement max y for last row
 	max_y -= 1
+
+	g.babel_win.clear()
 
 	# Iterate through each pixel
 	for y in range(max_y):
@@ -61,4 +61,4 @@ def draw_babel() -> None:
 			del text_buffer[0]
 
 			# Write letter
-			win.addstr(y, x, letter)
+			g.babel_win.addstr(y, x, letter)

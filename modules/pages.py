@@ -20,9 +20,16 @@ def draw_babel() -> None:
 	st = c.PAGES_PER_ENTRY * (c.ENTRIES_PER_LOG * current_log + current_entry)
 	st += current_page
 
+	# Create subwindow, 1 row more than needed (bottom right corner)
+	win = g.stdscr.subwin(g.MAX_Y - 3, g.MAX_X, 2, 0)
+	# Max y x
+	max_y, max_x = win.getmaxyx()
+	# Decrement max y for last row
+	max_y -= 1
+
 	# Iterate through each pixel
-	for y in range(g.MAX_Y - 4):
-		for x in range(g.MAX_X):
+	for y in range(max_y):
+		for x in range(max_x):
 
 			# If buffer is empty, generate a new one
 			if len(text_buffer) == 0:
@@ -42,4 +49,4 @@ def draw_babel() -> None:
 			del text_buffer[0]
 
 			# Write letter
-			g.stdscr.addstr(y + 2, x, letter)
+			win.addstr(y, x, letter)

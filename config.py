@@ -1,5 +1,10 @@
+import math
+
 # Alphabet to use. Must be 32 chars long
 ALPHABET = "    abcdefghijklmnopqrstuvwxyz,."
+
+# How many bits long the alphabet is.
+ALPHABET_BITS = int(math.log2(len(ALPHABET)))
 
 # How many bits output by xor shift
 XOR_BIT_LENGTH = 1024

@@ -31,9 +31,9 @@ def draw_babel():
 			if len(text_buffer) == 0:
 				# First, generate a very large random number
 				st = rand.random(st)
-				# Then, split that number into chunks of 5 bits and write into
+				# Then, split that number into chunks of c.ALPHABET_BITS bits and write into
 				# buffer.
-				text_buffer = h.split_into_bits(st, 5, c.XOR_BIT_LENGTH)
+				text_buffer = h.split_into_bits(st, c.ALPHABET_BITS, c.XOR_BIT_LENGTH)
 
 			# Use whichever number is at the start of text_buffer
 			letter = c.ALPHABET[text_buffer[0]]

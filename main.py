@@ -1,5 +1,4 @@
 import curses
-import config as c
 import modules.user_keypress as usr
 import modules.globals as g
 import modules.graphics as gfx

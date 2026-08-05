@@ -31,7 +31,12 @@ def init(s: curses.window) -> None:
 	title_win = header_win.subwin(2, h.true_len(c.TITLE), 0, 0)
 
 	global info_win
-	info_win = header_win.subwin(2, MAX_X - h.true_len(c.TITLE) - 1, 0, h.true_len(c.TITLE) + 1)
+	info_win = header_win.subwin(
+		2,
+		MAX_X - h.true_len(c.TITLE) - 1,
+		0,
+		h.true_len(c.TITLE) + 1
+	)
 
 	# Is running
 	global is_running

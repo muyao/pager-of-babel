@@ -45,7 +45,8 @@ def no_escapes(string: str) -> str:
 
 	for char in chars:
 		if char == c.FANCY_ESCAPE:
-			# Skip the escape character and consume the next character to skip it too
+			# Skip the escape character and consume the next character to skip
+			# it too
 			next(chars, None)
 		else:
 			result.append(char)

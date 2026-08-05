@@ -1,16 +1,28 @@
+import json
 import config as c
 import modules.globals as g
 import modules.helpers as h
 import modules.random as rand
+from pathlib import Path
 
 # Track current page
-current_page = 524
+current_page = 0
 
 # Track current entry
-current_entry = 1570273697
+current_entry = 0
 
 # Track current log
-current_log = 23908342998761355023511331478589481443787430013506081402175051559321781332155686087769515897337062082391183849441184021580880715754542844489816538170099452032343391041531928383071685280066290635281302442203079152429702905439389268761483906007494850379087786775119647218940613600578308356079002680
+current_log = 0
+
+with open(
+	Path(__file__).resolve().parent.parent / "resources" / "seed.json",
+	"r"
+) as f:
+	data = json.load(f)
+	current_page = int(data["page"], base=16)
+	current_entry = int(data["entry"], base=16)
+	current_log = int(data["log"], base=16)
+	del data
 
 def draw_babel() -> None:
 	# Reset buffer

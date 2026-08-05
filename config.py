@@ -47,7 +47,9 @@ MAX_SEARCH_LENGTH = RAND_OUT_BIT_LENGTH // ALPHABET_BITS
 MAX_CMD_LENGTH = 32
 
 # Fancy Paint Styles
-FANCY_STYLES = {'n': curses.A_NORMAL, 'b': curses.A_BOLD, 'u': curses.A_UNDERLINE}
+FANCY_STYLES = {
+	'n': curses.A_NORMAL, 'b': curses.A_BOLD, 'u': curses.A_UNDERLINE
+}
 
 # Escape char char for fancy
 FANCY_ESCAPE = '?'

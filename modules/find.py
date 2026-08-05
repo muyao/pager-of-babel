@@ -1,11 +1,21 @@
 import base62
 import curses
 import random
+from curses.textpad import Textbox
 import config as c
 import modules.globals as g
 import modules.graphics as gfx
 import modules.pages as pg
 import modules.random as rand
+
+def terminate_check(key: int) -> int:
+	if key == ord('\n'):
+		return 7
+	elif key == curses.KEY_DOWN:
+		return curses.KEY_RIGHT
+	elif key == curses.KEY_UP:
+		return curses.KEY_LEFT
+	return key
 
 def show_find_screen() -> None:
 
@@ -19,18 +29,25 @@ def show_find_screen() -> None:
 	# Show cursor
 	curses.curs_set(1)
 
-	# Show written text
-	curses.echo()
+	# Create subwindow
+	win = g.stdscr.subwin(g.MAX_Y - 4, g.MAX_X, 2, 0)
 
-	# Listen for input
-	raw_input = g.stdscr.getstr(1, 0, c.MAX_SEARCH_LENGTH).decode("utf-8")
+	# Wrap the window in a Textbox box manager
+	box = Textbox(win, insert_mode=True)
+
+	# Allow user to edit
+	box.edit(terminate_check)
+
+	# Get text result
+	raw_input = box.gather().strip()
+
+	# Limit input to MAX_SEARCH_LENGTH
+	if len(raw_input) > c.MAX_SEARCH_LENGTH:
+		raw_input = raw_input[:c.MAX_SEARCH_LENGTH]
 
 	# Cancel if raw input is empty
 	if raw_input == "":
 		return
-
-	# Hide written text
-	curses.noecho()
 
 	# Hide cursor
 	curses.curs_set(0)
@@ -45,7 +62,7 @@ def find(raw_input: str) -> tuple[int, int, int]:
 	# Clear screen
 	gfx.draw_base_screen(
 		"Find",
-		bottom_prompt=f"Finding {raw_input}...",
+		bottom_prompt=f"Finding {raw_input[:(min(40, len(raw_input)))]}...",
 		show_colon=False
 	)
 

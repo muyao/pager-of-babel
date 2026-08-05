@@ -40,7 +40,7 @@ def show_find_screen() -> None:
 	box.edit(terminate_check)
 
 	# Get text result
-	raw_input = box.gather().strip()
+	raw_input = box.gather().strip().replace("_", " ")
 
 	# Limit input to MAX_SEARCH_LENGTH
 	if len(raw_input) > c.MAX_SEARCH_LENGTH:

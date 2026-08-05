@@ -1,3 +1,4 @@
+import curses
 import config as c
 
 # Check if a string can be turned into an int
@@ -56,3 +57,13 @@ def no_escapes(string: str) -> str:
 # True length of a string without fancy escapes
 def true_len(string: str) -> int:
 	return len(no_escapes(string))
+
+# Termination check for textbox
+def terminate_check(key: int) -> int:
+	if key == ord('\n'):
+		return 7
+	elif key == curses.KEY_DOWN:
+		return curses.KEY_RIGHT
+	elif key == curses.KEY_UP:
+		return curses.KEY_LEFT
+	return key

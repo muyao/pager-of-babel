@@ -9,15 +9,6 @@ import modules.helpers as h
 import modules.pages as pg
 import modules.random as rand
 
-def terminate_check(key: int) -> int:
-	if key == ord('\n'):
-		return 7
-	elif key == curses.KEY_DOWN:
-		return curses.KEY_RIGHT
-	elif key == curses.KEY_UP:
-		return curses.KEY_LEFT
-	return key
-
 def show_find_screen() -> None:
 
 	# Clear screen
@@ -37,7 +28,7 @@ def show_find_screen() -> None:
 	box = Textbox(win, insert_mode=True)
 
 	# Allow user to edit
-	box.edit(terminate_check)
+	box.edit(h.terminate_check)
 
 	# Get text result
 	raw_input = box.gather().strip().replace("_", " ")

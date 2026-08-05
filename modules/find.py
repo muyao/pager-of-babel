@@ -72,7 +72,6 @@ def find(raw_input: str) -> tuple[int, int, int]:
 	for alpha_idx in sanitised_input:
 		s <<= c.ALPHABET_BITS
 		s += alpha_idx
-	s <<= c.ALPHABET_BITS
 
 	# Find seed
 	s = rand.unrandom(s)

@@ -32,7 +32,7 @@ MAX_PAGE_LENGTH = 3
 MAX_ENTRY_LENGTH = 8
 
 # Max log name length
-MAX_LOG_DISPLAY_LENGTH = 10
+MAX_LOG_DISPLAY_LENGTH = 20
 
 # Amount of pages per log
 PAGES_PER_ENTRY = 10 ** MAX_PAGE_LENGTH - 1
@@ -47,7 +47,13 @@ MAX_SEARCH_LENGTH = RAND_OUT_BIT_LENGTH // ALPHABET_BITS
 MAX_CMD_LENGTH = 32
 
 # Fancy Paint Styles
-FANCY_STYLES = {'n': curses.A_NORMAL, 'b': curses.A_BOLD}
+FANCY_STYLES = {'n': curses.A_NORMAL, 'b': curses.A_BOLD, 'u': curses.A_UNDERLINE}
 
 # Escape char char for fancy
 FANCY_ESCAPE = '?'
+
+# Title that gets displayed in the top left corner
+TITLE = "?bThe Pager of Babel?n"
+
+def INFO_MSG(log: str, entry: str, page: int) -> str:
+	return f"Log ?u{log}?n    Entry ?u{entry}?n    Page ?u{page}?n"

@@ -5,6 +5,7 @@ from curses.textpad import Textbox
 import config as c
 import modules.globals as g
 import modules.graphics as gfx
+import modules.helpers as h
 import modules.pages as pg
 import modules.random as rand
 
@@ -108,8 +109,7 @@ def display_found(found_location: tuple[int, int, int]) -> None:
 
 	# In case log name is too long
 	log = base62.encode(log)
-	if len(log) > c.MAX_LOG_DISPLAY_LENGTH:
-		log = f"{log[:7]}..."
+	log = h.cut_off_end(log, c.MAX_LOG_DISPLAY_LENGTH)
 
 	# Clear screen
 	gfx.draw_base_screen(

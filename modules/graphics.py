@@ -1,8 +1,11 @@
+import base62
 import curses
 import config as c
 import modules.globals as g
+import modules.helpers as h
+import modules.pages as pg
 
-def addstrf(win: curses.window, text: str) -> None:
+def addstrf(win: curses.window, start_y: int, start_x: int, text: str) -> None:
 
 	# Max y and x
 	max_y, max_x = win.getmaxyx()
@@ -22,7 +25,7 @@ def addstrf(win: curses.window, text: str) -> None:
 
 			# If char is not the escape char, skip the rest
 			if char != c.FANCY_ESCAPE:
-				win.addstr(y, x, char, attr)
+				win.addstr(y + start_y, x + start_x, char, attr)
 				char_idx += 1
 				continue
 
@@ -32,15 +35,18 @@ def addstrf(win: curses.window, text: str) -> None:
 
 			# If next char is escape char, write escape char itself
 			if char == c.FANCY_ESCAPE:
-				win.addstr(y, x, char, attr)
+				win.addstr(y + start_y, x + start_x, char, attr)
 				char_idx += 1
 				continue
 
 			# Otherwise, get the style and draw the next char
 			attr = c.FANCY_STYLES[char]
 			char_idx += 1
+			# Stop if reached end of text
+			if char_idx == len(text):
+				return
 			char = text[char_idx]
-			win.addstr(y, x, char, attr)
+			win.addstr(y + start_y, x + start_x, char, attr)
 			char_idx += 1
 
 def draw_base_screen(
@@ -65,3 +71,20 @@ def draw_base_screen(
 	# The ':' in the bottom left
 	if show_colon:
 		g.stdscr.addstr(g.MAX_Y - 1, 0, ':')
+
+def draw_info() -> None:
+	g.info_win.clear()
+	max_y, max_x = g.info_win.getmaxyx()
+
+	log_str = base62.encode(pg.current_log)
+	log_str = h.cut_off_end(log_str, c.MAX_LOG_DISPLAY_LENGTH)
+
+	entry_str = hex(pg.current_entry)
+
+	string = c.INFO_MSG(log_str, entry_str, pg.current_page)
+
+	addstrf(g.info_win, 0, max_x - h.true_len(string), string)
+
+def draw_title() -> None:
+	g.title_win.clear()
+	addstrf(g.title_win, 0, 0, c.TITLE)

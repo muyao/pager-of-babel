@@ -58,23 +58,18 @@ def find(raw_input: str) -> tuple[int, int, int]:
 
 	# Turn input into list of indexes
 	sanitised_input = sanitised_input
-	sanitised_input_list = []
-	for char in sanitised_input:
-		sanitised_input_list.append(c.ALPHABET.index(char))
+	sanitised_input = [c.ALPHABET.index(char) for char in sanitised_input]
 
 	# Fill chunk with random characters
-	# Start with a space so that phrase is separated
-	sanitised_input_list.append(0)
-	tmp_range = range(
-		int(c.RAND_OUT_BIT_LENGTH / c.ALPHABET_BITS) - len(sanitised_input_list) - 1
-	)
-	sanitised_input_list += [
-		random.randint(0, len(c.ALPHABET) - 1) for i in tmp_range
+	sanitised_input += [
+		random.randint(0, len(c.ALPHABET) - 1) for i in range(
+			int(c.RAND_OUT_BIT_LENGTH / c.ALPHABET_BITS) - len(sanitised_input)
+		)
 	]
 
 	# Turn list into state (state of wanted)
 	s = 0
-	for alpha_idx in sanitised_input_list:
+	for alpha_idx in sanitised_input:
 		s <<= c.ALPHABET_BITS
 		s += alpha_idx
 	s <<= c.ALPHABET_BITS
@@ -103,8 +98,12 @@ def display_found(found_location: tuple[int, int, int]) -> None:
 	# Clear screen
 	gfx.draw_base_screen(
 		"Find",
-		upper_bottom_prompt=f"Found at log {log}, entry {hex(entry)}, page {page}",
-		bottom_prompt="Press enter to go to that location. Press any other key to cancel"
+		upper_bottom_prompt=(
+			f"Found at log {log}, entry {hex(entry)}, page {page}"
+		),
+		bottom_prompt=(
+			"Press enter to go to that location. Press any other key to cancel"
+		)
 	)
 
 	# Move cursor to after the ':'

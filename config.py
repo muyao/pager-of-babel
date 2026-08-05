@@ -1,3 +1,4 @@
+import curses
 import math
 
 # Alphabet to use. Must be 32 chars long
@@ -44,3 +45,9 @@ MAX_SEARCH_LENGTH = RAND_OUT_BIT_LENGTH // ALPHABET_BITS
 
 # Max length of commands
 MAX_CMD_LENGTH = 32
+
+# Fancy Paint Styles
+FANCY_STYLES = {'n': curses.A_NORMAL, 'b': curses.A_BOLD}
+
+# Escape char char for fancy
+FANCY_ESCAPE = '?'

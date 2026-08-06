@@ -9,7 +9,7 @@ def show_manual() -> None:
 	max_y -= 1
 
 	# Info
-	gfx.draw_info("Press Q to exit    ?bHelp Manual?n")
+	gfx.draw_info("Press Enter to exit    ?bHelp Manual?n")
 	gfx.draw_footer(':')
 	g.info_win.refresh()
 	g.footer_win.refresh()
@@ -66,5 +66,5 @@ def show_manual() -> None:
 			line_offset -= 1
 			if line_offset < 0:
 				line_offset += 1
-		elif key == ord('q'):
+		elif key == ord('\n'):
 			g.is_in_help_manual = False

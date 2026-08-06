@@ -47,29 +47,6 @@ def addstrf(win: curses.window, start_y: int, start_x: int, text: str) -> None:
 			win.addstr(y + start_y, x + start_x, char, attr)
 			char_idx += 1
 
-def draw_base_screen(
-	info: str,
-	bottom_prompt: str="",
-	upper_bottom_prompt: str="",
-	show_colon: bool=True
-) -> None:
-	# Clear screen
-	g.stdscr.clear()
-
-	# Title
-	title = f"The Pager of Babel - {info}"
-	g.stdscr.addstr(0, int((g.MAX_X - len(title)) / 2), title)
-
-	# Upper bottom prompt
-	g.stdscr.addstr(g.MAX_Y - 3, 0, upper_bottom_prompt)
-
-	# Bottom prompt
-	g.stdscr.addstr(g.MAX_Y - 2, 0, bottom_prompt)
-
-	# The ':' in the bottom left
-	if show_colon:
-		g.stdscr.addstr(g.MAX_Y - 1, 0, ':')
-
 def draw_info(info: str) -> None:
 	g.info_win.clear()
 	max_y, max_x = g.info_win.getmaxyx()

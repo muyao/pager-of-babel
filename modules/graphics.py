@@ -7,8 +7,6 @@ def addstrf(win: curses.window, start_y: int, start_x: int, text: str) -> None:
 
 	# Max y and x
 	max_y, max_x = win.getmaxyx()
-	# Curr char
-	char_idx = 0
 	# Attr
 	attr = curses.A_NORMAL
 

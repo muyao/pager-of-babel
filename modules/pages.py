@@ -26,7 +26,7 @@ with open(
 
 def draw_babel() -> None:
 	# Reset buffer
-	text_buffer = []
+	char_buffer = []
 
 	# Starting state for seed
 	st = c.PAGES_PER_ENTRY * (c.ENTRIES_PER_LOG * current_log + current_entry)
@@ -41,24 +41,26 @@ def draw_babel() -> None:
 
 	# Iterate through each pixel
 	for y in range(max_y):
-		for x in range(max_x):
 
-			# If buffer is empty, generate a new one
-			if len(text_buffer) == 0:
-				# First, generate a very large random number
-				st = rand.random(st)
-				# Then, split that number into chunks of c.ALPHABET_BITS bits
-				# and write into buffer.
-				text_buffer = h.split_into_bits(
-					st,
-					c.ALPHABET_BITS,
-					c.RAND_OUT_BIT_LENGTH
-				)
+		# If buffer is empty, generate a new one
+		if len(char_buffer) < max_x:
 
-			# Use whichever number is at the start of text_buffer
-			letter = c.ALPHABET[text_buffer[0]]
-			# Delete it from buffer so we don't use it again
-			del text_buffer[0]
+			# First, generate a very large random number
+			st = rand.random(st)
 
-			# Write letter
-			g.babel_win.addstr(y, x, letter)
+			# Then, split that number into chunks of c.ALPHABET_BITS bits
+			# and concat to buffer.
+			char_buffer += h.split_into_bits(
+				st,
+				c.ALPHABET_BITS,
+				c.RAND_OUT_BIT_LENGTH
+			)
+
+		# Turn indexes into row of chars
+		row = char_buffer[0:max_x]
+		del char_buffer[0:max_x]
+		row = [c.ALPHABET[idx] for idx in row]
+		row = "".join(row)
+
+		# Write row
+		g.babel_win.addstr(y, 0, row)

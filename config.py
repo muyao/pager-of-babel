@@ -7,8 +7,11 @@ ALPHABET = "    abcdefghijklmnopqrstuvwxyz,."
 # How many bits long the alphabet is.
 ALPHABET_BITS = int(math.log2(len(ALPHABET)))
 
+# Mask for char
+ALPHABET_CHAR_MASK = (1 << ALPHABET_BITS) - 1
+
 # How many bits outputted by random
-RAND_OUT_BIT_LENGTH = (1 << 16) - 1
+RAND_OUT_BIT_LENGTH = 1 << 16
 
 # Half len
 RAND_HALF_BITS = RAND_OUT_BIT_LENGTH // 2

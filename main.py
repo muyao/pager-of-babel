@@ -34,7 +34,7 @@ def main(s: curses.window) -> int:
 		log_str = base62.encode(pg.current_log)
 		log_str = h.cut_off_end(log_str, c.MAX_LOG_DISPLAY_LENGTH)
 		entry_str = hex(pg.current_entry)
-		info = c.INFO_MSG(log_str, entry_str, pg.current_page)
+		info = c.INFO_MSG(log_str, entry_str, pg.current_page, pg.line_offset)
 		gfx.draw_info(info)
 		gfx.draw_on_window(g.footer_win, 0, 0, ':')
 

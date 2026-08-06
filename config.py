@@ -57,5 +57,10 @@ FANCY_ESCAPE = '?'
 # Title that gets displayed in the top left corner
 TITLE = "?bThe Pager of Babel?n"
 
-def INFO_MSG(log: str, entry: str, page: int) -> str:
-	return f"Log ?u{log}?n    Entry ?u{entry}?n    Page ?u{page}?n"
+def INFO_MSG(log: str, entry: str, page: int, line: int) -> str:
+	return (
+		f"Log ?u{log}?n    "
+		f"Entry ?u{entry}?n    "
+		f"Page ?u{page}?n    "
+		f"Line ?u{line}?n"
+	)

@@ -35,6 +35,7 @@ def process_command(command: str) -> None:
 
 	elif h.is_int(command):
 		pg.current_page = int(command)
+		pg.line_offset = 0
 		if pg.current_page < 1:
 			pg.current_page = 1
 		elif pg.current_page > c.PAGES_PER_ENTRY:

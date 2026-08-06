@@ -5,15 +5,12 @@ import modules.helpers as h
 import modules.random as rand
 from pathlib import Path
 
-# Track current page
 current_page = 0
-
-# Track current entry
 current_entry = 0
-
-# Track current log
 current_log = 0
+line_offset = 0
 
+# Read initial seed from resources/seed.json
 with open(
 	Path(__file__).resolve().parent.parent / "resources" / "seed.json",
 	"r"
@@ -25,12 +22,12 @@ with open(
 	del data
 
 def draw_babel() -> None:
-	# Reset buffer
-	char_buffer = []
 
-	# Starting state for seed
-	st = c.PAGES_PER_ENTRY * (c.ENTRIES_PER_LOG * current_log + current_entry)
-	st += current_page
+	# Seed for first page
+	st = (
+		c.PAGES_PER_ENTRY * (c.ENTRIES_PER_LOG * current_log + current_entry)
+		+ current_page
+	)
 
 	# Max y x
 	max_y, max_x = g.babel_win.getmaxyx()
@@ -39,10 +36,30 @@ def draw_babel() -> None:
 
 	g.babel_win.clear()
 
+	# First page
+	draw_page(st, max_y, max_x, line_offset)
+
+	# Stop if only one page is visible
+	if line_offset == 0:
+		return
+
+	# Seed for second page
+	st = (
+		c.PAGES_PER_ENTRY * (c.ENTRIES_PER_LOG * current_log + current_entry)
+		+ current_page + 1
+	)
+
+	# Second page
+	draw_page(st, max_y, max_x, line_offset - max_y)
+
+def draw_page(st: int, max_y: int, max_x: int, off: int) -> None:
+
+	char_buffer = []
+
 	# Iterate through each pixel
 	for y in range(max_y):
 
-		# If buffer is empty, generate a new one
+		# If buffer is exhausted, concat more
 		if len(char_buffer) < max_x:
 
 			# First, generate a very large random number
@@ -56,11 +73,17 @@ def draw_babel() -> None:
 				c.RAND_OUT_BIT_LENGTH
 			)
 
-		# Turn indexes into row of chars
-		row = char_buffer[0:max_x]
-		del char_buffer[0:max_x]
-		row = [c.ALPHABET[idx] for idx in row]
-		row = "".join(row)
+		# Stop if row is offscreen (bottom)
+		if y - off >= max_y:
+			return
 
-		# Write row
-		g.babel_win.addstr(y, 0, row)
+		# Turn indexes into row of chars
+		# Skip if row is offscreen (top)
+		if y - off >= 0:
+			row = char_buffer[0:max_x]
+			row = [c.ALPHABET[idx] for idx in row]
+			row = "".join(row)
+			# Write row
+			g.babel_win.addstr(y - off, 0, row)
+
+		del char_buffer[0:max_x]

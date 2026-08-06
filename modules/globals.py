@@ -13,6 +13,7 @@ footer_win = None
 MAX_X = None
 MAX_Y = None
 is_running = None
+is_in_help_manual = None
 
 # Here actually give them a value
 def init(s: curses.window) -> None:
@@ -50,6 +51,9 @@ def init(s: curses.window) -> None:
 	global footer_win
 	footer_win = stdscr.subwin(1, MAX_X, MAX_Y - 1, 0)
 
-	# Is running
+	# Is vars
 	global is_running
-	is_running = False
+	is_running = True
+
+	global is_in_help_manual
+	is_in_help_manual = False

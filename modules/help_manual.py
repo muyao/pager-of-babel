@@ -4,25 +4,65 @@ import modules.graphics as gfx
 from pathlib import Path
 
 def show_manual() -> None:
-	# Hide cursor
-	curses.curs_set(0)
 
-	# Clear screen
-	gfx.draw_base_screen(
-		"Help Manual",
-		bottom_prompt="Press any key to exit help manual",
-		show_colon=False
-	)
+	max_y, max_x = g.babel_win.getmaxyx()
+	max_y -= 1
+
+	# Info
+	gfx.draw_info("Press Q to exit    ?bHelp Manual?n")
+	g.info_win.refresh()
 
 	# Read from resources/help.txt
 	with open(
 		Path(__file__).resolve().parent.parent / "resources" / "help.txt",
 		"r"
 	) as f:
-		help_text = f.read()
+		help_text = f.readlines()
 
-	# Write onto screen
-	g.stdscr.addstr(1, 0, help_text)
+	line_offset = 0
 
-	# Wait until another key is pressed
-	g.stdscr.getch()
+	g.is_in_help_manual = True
+	while g.is_in_help_manual:
+
+		# Clear
+		g.babel_win.clear()
+
+		# Write lines
+		for line in range(max_y):
+
+			# Stop if reached end of text
+			if line + line_offset == len(help_text):
+				break
+
+			# Write single line
+			gfx.addstrf(
+				g.babel_win,
+				line,
+				0,
+				help_text[line + line_offset]
+			)
+
+		g.stdscr.move(g.MAX_Y - 1, 1)
+		curses.curs_set(1)
+		g.babel_win.refresh()
+
+		key = g.stdscr.getch()
+
+		if key == ord(' '):
+			line_offset += max_y
+			if line_offset >= len(help_text):
+				line_offset -= max_y
+		elif key == ord('b'):
+			line_offset -= max_y
+			if line_offset < 0:
+				line_offset += max_y
+		elif key == ord('j') or key == curses.KEY_DOWN:
+			line_offset += 1
+			if line_offset >= len(help_text):
+				line_offset -= 1
+		elif key == ord('k') or key == curses.KEY_UP:
+			line_offset -= 1
+			if line_offset < 0:
+				line_offset += 1
+		elif key == ord('q'):
+			g.is_in_help_manual = False

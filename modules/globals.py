@@ -45,9 +45,6 @@ def init(s: curses.window) -> None:
 	global babel_win
 	babel_win = stdscr.subwin(MAX_Y - 3, MAX_X, 2, 0)
 
-	global find_win
-	find_win = stdscr.subwin(MAX_Y - 4, MAX_X, 2, 0)
-
 	global footer_win
 	footer_win = stdscr.subwin(1, MAX_X, MAX_Y - 1, 0)
 

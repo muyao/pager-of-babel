@@ -48,15 +48,20 @@ def addstrf(win: curses.window, start_y: int, start_x: int, text: str) -> None:
 			char_idx += 1
 
 def draw_info(info: str) -> None:
+	curses.curs_set(0)
 	g.info_win.clear()
 	max_y, max_x = g.info_win.getmaxyx()
-
 	addstrf(g.info_win, 0, max_x - h.true_len(info), info)
+	g.info_win.refresh()
 
 def draw_title() -> None:
+	curses.curs_set(0)
 	g.title_win.clear()
 	addstrf(g.title_win, 0, 0, c.TITLE)
+	g.title_win.refresh()
 
 def draw_footer(footer: str) -> None:
+	curses.curs_set(0)
 	g.footer_win.clear()
 	addstrf(g.footer_win, 0, 0, footer)
+	g.footer_win.refresh()

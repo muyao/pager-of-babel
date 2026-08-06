@@ -14,8 +14,6 @@ def show_find_screen() -> None:
 	gfx.draw_info("Leave empty to cancel    ?bSearch?n")
 	gfx.draw_footer("")
 	curses.curs_set(1)
-	g.info_win.refresh()
-	g.footer_win.refresh()
 
 	g.babel_win.clear()
 
@@ -48,7 +46,6 @@ def find(raw_input: str) -> tuple[int, int, int]:
 
 	# Clear screen
 	gfx.draw_info("Searching...    ?bSearch?n")
-	g.info_win.refresh()
 
 	# Sanitise input
 	sanitised_input = raw_input
@@ -112,9 +109,7 @@ def display_found(found_location: tuple[int, int, int]) -> None:
 
 	g.stdscr.move(g.MAX_Y - 1, 1)
 	curses.curs_set(1)
-	g.info_win.refresh()
 	g.babel_win.refresh()
-	g.footer_win.refresh()
 
 	# Listen for user input
 	key = g.stdscr.getch()

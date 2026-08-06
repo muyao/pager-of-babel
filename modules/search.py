@@ -9,7 +9,7 @@ import modules.helpers as h
 import modules.pages as pg
 import modules.random as rand
 
-def show_find_screen() -> None:
+def show_search_screen() -> None:
 
 	gfx.draw_info("Leave empty to cancel    ?bSearch?n")
 	gfx.draw_on_window(g.footer_win, 0, 0, "")
@@ -37,12 +37,12 @@ def show_find_screen() -> None:
 	# Hide cursor
 	curses.curs_set(0)
 
-	# Find
-	found_location = find(raw_input)
+	# Search
+	found_location = search(raw_input)
 
 	display_found(found_location)
 
-def find(raw_input: str) -> tuple[int, int, int]:
+def search(raw_input: str) -> tuple[int, int, int]:
 
 	# Clear screen
 	gfx.draw_info("Searching...    ?bSearch?n")

@@ -8,7 +8,6 @@ header_win = None
 title_win = None
 info_win = None
 babel_win = None
-find_win = None
 footer_win = None
 MAX_X = None
 MAX_Y = None

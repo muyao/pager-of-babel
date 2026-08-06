@@ -1,6 +1,6 @@
 import curses
 import config as c
-import modules.find as find
+import modules.search as search
 import modules.globals as g
 import modules.help_manual as help_manual
 import modules.helpers as h
@@ -40,5 +40,5 @@ def process_command(command: str) -> None:
 		elif pg.current_page > c.PAGES_PER_ENTRY:
 			pg.current_page = c.PAGES_PER_ENTRY
 
-	elif command == 'f' or command == "find":
-		find.show_find_screen()
+	elif command == 'f' or command == "search":
+		search.show_search_screen()

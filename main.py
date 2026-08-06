@@ -10,6 +10,10 @@ import modules.pages as pg
 def main(s: curses.window) -> int:
 	g.init(s)
 
+	if g.MAX_X < 80:
+		raise Exception("Window too small. Must be at least 80 chars wide")
+
+
 	# Show cursor
 	curses.curs_set(1)
 

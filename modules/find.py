@@ -11,18 +11,16 @@ import modules.random as rand
 
 def show_find_screen() -> None:
 
-	# Clear screen
-	gfx.draw_base_screen(
-		"Find",
-		bottom_prompt="Leave empty to cancel",
-		show_colon=False
-	)
-
-	# Show cursor
+	gfx.draw_info("Leave empty to cancel    ?bSearch?n")
+	gfx.draw_footer("")
 	curses.curs_set(1)
+	g.info_win.refresh()
+	g.footer_win.refresh()
+
+	g.babel_win.clear()
 
 	# Wrap the window in a Textbox box manager
-	box = Textbox(g.find_win, insert_mode=True)
+	box = Textbox(g.babel_win, insert_mode=True)
 
 	# Allow user to edit
 	box.edit(h.terminate_check)
@@ -49,11 +47,8 @@ def show_find_screen() -> None:
 def find(raw_input: str) -> tuple[int, int, int]:
 
 	# Clear screen
-	gfx.draw_base_screen(
-		"Find",
-		bottom_prompt=f"Finding {raw_input[:(min(40, len(raw_input)))]}...",
-		show_colon=False
-	)
+	gfx.draw_info("Searching...    ?bSearch?n")
+	g.info_win.refresh()
 
 	# Sanitise input
 	sanitised_input = raw_input
@@ -95,26 +90,31 @@ def display_found(found_location: tuple[int, int, int]) -> None:
 
 	log, entry, page = found_location
 
-	# In case log name is too long
-	log = base62.encode(log)
-	log = h.cut_off_end(log, c.MAX_LOG_DISPLAY_LENGTH)
+	log_str = base62.encode(log)
+	log_str = h.cut_off_end(log_str, c.MAX_LOG_DISPLAY_LENGTH)
 
-	# Clear screen
-	gfx.draw_base_screen(
-		"Find",
-		upper_bottom_prompt=(
-			f"Found at log {log}, entry {hex(entry)}, page {page}"
-		),
-		bottom_prompt=(
-			"Press enter to go to that location. Press any other key to cancel"
-		)
+	entry_str = hex(entry)
+
+	g.babel_win.clear()
+	gfx.addstrf(g.babel_win, 0, 0, "?bFound at:?n")
+	gfx.addstrf(g.babel_win, 1, 0, f"Log ?u{log_str}?n")
+	gfx.addstrf(g.babel_win, 2, 0, f"Entry ?u{entry_str}?n")
+	gfx.addstrf(g.babel_win, 3, 0, f"Page ?u{page}?n")
+	gfx.addstrf(
+		g.babel_win,
+		5,
+		0,
+		"Press ?bEnter?n to go to that location. Press any other key to cancel"
 	)
 
-	# Move cursor to after the ':'
+	gfx.draw_info("?bSearch?n")
+	gfx.draw_footer(':')
+
 	g.stdscr.move(g.MAX_Y - 1, 1)
-	
-	# Show cursor
 	curses.curs_set(1)
+	g.info_win.refresh()
+	g.babel_win.refresh()
+	g.footer_win.refresh()
 
 	# Listen for user input
 	key = g.stdscr.getch()

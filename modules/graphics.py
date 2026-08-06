@@ -12,40 +12,40 @@ def addstrf(win: curses.window, start_y: int, start_x: int, text: str) -> None:
 	# Attr
 	attr = curses.A_NORMAL
 
+	text_iter = iter(text)
+
 	for y in range(max_y):
 		for x in range(max_x):
 
-			# Stop if reached end of text
-			if char_idx == len(text):
-				return
+			char = next(text_iter, None)
 
-			char = text[char_idx]
+			# Stop if reached end of text
+			if char is None:
+				return
 
 			# If char is not the escape char, skip the rest
 			if char != c.FANCY_ESCAPE:
 				win.addstr(y + start_y, x + start_x, char, attr)
-				char_idx += 1
 				continue
 
 			# If char is escape char, look at the next char
-			char_idx += 1
-			char = text[char_idx]
+			char = next(text_iter)
 
 			# If next char is escape char, write escape char itself
 			if char == c.FANCY_ESCAPE:
 				win.addstr(y + start_y, x + start_x, char, attr)
-				char_idx += 1
 				continue
 
 			# Otherwise, get the style and draw the next char
 			attr = c.FANCY_STYLES[char]
-			char_idx += 1
+
+			char = next(text_iter, None)
 			# Stop if reached end of text
-			if char_idx == len(text):
+			if char is None:
 				return
-			char = text[char_idx]
+
+			# Write char 2 places after escape char with style (?ab -> b)
 			win.addstr(y + start_y, x + start_x, char, attr)
-			char_idx += 1
 
 def draw_info(info: str) -> None:
 	curses.curs_set(0)

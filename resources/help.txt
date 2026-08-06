@@ -3,7 +3,7 @@
      This was inspired by the Library of Babel, an infinite library with every
      book that existed in the past, exists now and will exist in the future.
      This is a digital version of it called the Pager of Babel. You can page
-     through infinite logs with entries of 1000 pages per entry. Just like the
+     through infinite logs with entries of 999 pages per entry. Just like the
      library, this contains every page that could be printed, is printed and
      will be printed.
 
@@ -23,7 +23,7 @@
 
 ?bCOMMANDS?n
 
-     ?bf?n ?uphrase?n, ?bfind?n ?uphrase?n
+     ?bf?n ?uphrase?n, ?bsearch?n ?uphrase?n
              Find phrase. Returns 
 
      ?bh?n, ?bhelp?n
@@ -34,3 +34,17 @@
 
      ?b<any number>?n
              Jump to page
+
+?bHELP MANUAL?n
+
+     ?bb?n       Previous page
+
+     ?benter?n   Exit help manual
+
+     ?bj?n, ?bdown arrow?n
+             Down one line
+
+     ?bk?n, ?bup arrow?n
+             Up one line
+
+     ?bspace?n   Next page

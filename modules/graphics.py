@@ -1,9 +1,7 @@
-import base62
 import curses
 import config as c
 import modules.globals as g
 import modules.helpers as h
-import modules.pages as pg
 
 def addstrf(win: curses.window, start_y: int, start_x: int, text: str) -> None:
 
@@ -72,18 +70,11 @@ def draw_base_screen(
 	if show_colon:
 		g.stdscr.addstr(g.MAX_Y - 1, 0, ':')
 
-def draw_info() -> None:
+def draw_info(info: str) -> None:
 	g.info_win.clear()
 	max_y, max_x = g.info_win.getmaxyx()
 
-	log_str = base62.encode(pg.current_log)
-	log_str = h.cut_off_end(log_str, c.MAX_LOG_DISPLAY_LENGTH)
-
-	entry_str = hex(pg.current_entry)
-
-	string = c.INFO_MSG(log_str, entry_str, pg.current_page)
-
-	addstrf(g.info_win, 0, max_x - h.true_len(string), string)
+	addstrf(g.info_win, 0, max_x - h.true_len(info), info)
 
 def draw_title() -> None:
 	g.title_win.clear()

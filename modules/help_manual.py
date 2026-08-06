@@ -44,7 +44,7 @@ def show_manual() -> None:
 
 		g.stdscr.move(g.MAX_Y - 1, 1)
 		curses.curs_set(1)
-		g.babel_win.refresh()
+		g.babel_win.noutrefresh()
 
 		key = g.stdscr.getch()
 

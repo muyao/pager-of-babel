@@ -47,7 +47,10 @@ def main(s: curses.window) -> int:
 		# Show cursor
 		curses.curs_set(1)
 
-		g.babel_win.refresh()
+		g.babel_win.noutrefresh()
+
+		# Refresh all
+		curses.doupdate()
 
 		# Handle key presses
 		key = g.stdscr.getch()

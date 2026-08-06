@@ -50,10 +50,10 @@ def draw_info(info: str) -> None:
 	g.info_win.clear()
 	max_y, max_x = g.info_win.getmaxyx()
 	addstrf(g.info_win, 0, max_x - h.true_len(info), info)
-	g.info_win.refresh()
+	g.info_win.noutrefresh()
 
 def draw_on_window(window: curses.window, y: int, x: int, text: str) -> None:
 	curses.curs_set(0)
 	window.clear()
 	addstrf(window, y, x, text)
-	window.refresh()
+	window.noutrefresh()

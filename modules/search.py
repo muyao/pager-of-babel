@@ -109,7 +109,7 @@ def display_found(found_location: tuple[int, int, int]) -> None:
 
 	g.stdscr.move(g.MAX_Y - 1, 1)
 	curses.curs_set(1)
-	g.babel_win.refresh()
+	g.babel_win.noutrefresh()
 
 	# Listen for user input
 	key = g.stdscr.getch()

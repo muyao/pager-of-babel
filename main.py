@@ -36,7 +36,7 @@ def main(s: curses.window) -> int:
 		entry_str = hex(pg.current_entry)
 		info = c.INFO_MSG(log_str, entry_str, pg.current_page)
 		gfx.draw_info(info)
-		gfx.draw_footer()
+		gfx.draw_footer(':')
 
 		# Babel text can go from row 2 to row g.MAX_Y - 4
 		pg.draw_babel()

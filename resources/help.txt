@@ -1,27 +1,35 @@
-CONTROLS
+?bABOUT?n
+     This was inspired by the Library of Babel, an infinite library with every
+     book that existed in the past, exists now and will exist in the future.
+     This is a digital version of it called the Pager of Babel. You can page
+     through infinite logs with entries of 1000 pages per entry. Just like the
+     library, this contains every page that could be printed, is printed and
+     will be printed.
 
-	b	Previous page
+?bCONTROLS?n
 
-	f	Find phrase
+     ?bb?n       Previous page
 
-	h	Show help manual
+     ?bf?n       Find phrase
 
-	space	Next page
+     ?bh?n       Show help manual
 
-	q	Quit
+     ?bspace?n   Next page
 
-	:	Enter command
+     ?bq?n       Quit
 
-COMMANDS
+     ?b:?n       Enter command
 
-	f phrase, find phrase
-		Find phrase. Returns 
+?bCOMMANDS?n
 
-	h, help
-		Display this help screen
+     ?bf?n ?uphrase?n, ?bfind?n ?uphrase?n
+             Find phrase. Returns 
 
-	q, quit
-		Quit
+     ?bh?n, ?bhelp?n
+             Display this help screen
 
-	<any number>
-		Jump to page
+     ?bq?n, ?bquit?n
+             Quit
+
+     ?b<any number>?n
+             Jump to page

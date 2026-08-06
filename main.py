@@ -18,6 +18,10 @@ def main(s: curses.window) -> int:
 
 	while g.is_running:
 
+		# Crash if window gets resized
+		if g.stdscr.getmaxyx() != (g.MAX_Y, g.MAX_X):
+			raise Exception("Window resized")
+
 		# Graphics stuff
 		gfx.draw_title()
 		gfx.draw_info()

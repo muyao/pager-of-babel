@@ -30,13 +30,13 @@ def main(s: curses.window) -> int:
 			raise Exception("Window resized")
 
 		# Graphics stuff
-		gfx.draw_title()
+		gfx.draw_on_window(g.title_win, 0, 0, c.TITLE)
 		log_str = base62.encode(pg.current_log)
 		log_str = h.cut_off_end(log_str, c.MAX_LOG_DISPLAY_LENGTH)
 		entry_str = hex(pg.current_entry)
 		info = c.INFO_MSG(log_str, entry_str, pg.current_page)
 		gfx.draw_info(info)
-		gfx.draw_footer(':')
+		gfx.draw_on_window(g.footer_win, 0, 0, ':')
 
 		# Babel text can go from row 2 to row g.MAX_Y - 4
 		pg.draw_babel()

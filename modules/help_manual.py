@@ -10,7 +10,7 @@ def show_manual() -> None:
 
 	# Info
 	gfx.draw_info("Press Enter to exit    ?bHelp Manual?n")
-	gfx.draw_footer(':')
+	gfx.draw_on_window(g.footer_win, 0, 0, ':')
 
 	# Read from resources/help.txt
 	with open(

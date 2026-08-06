@@ -54,14 +54,8 @@ def draw_info(info: str) -> None:
 	addstrf(g.info_win, 0, max_x - h.true_len(info), info)
 	g.info_win.refresh()
 
-def draw_title() -> None:
+def draw_on_window(window: curses.window, y: int, x: int, text: str) -> None:
 	curses.curs_set(0)
-	g.title_win.clear()
-	addstrf(g.title_win, 0, 0, c.TITLE)
-	g.title_win.refresh()
-
-def draw_footer(footer: str) -> None:
-	curses.curs_set(0)
-	g.footer_win.clear()
-	addstrf(g.footer_win, 0, 0, footer)
-	g.footer_win.refresh()
+	window.clear()
+	addstrf(window, y, x, text)
+	window.refresh()

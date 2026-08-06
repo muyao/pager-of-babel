@@ -50,19 +50,16 @@ def show_manual() -> None:
 
 		if key == ord(' '):
 			line_offset += max_y
-			if line_offset >= len(help_text):
-				line_offset -= max_y
 		elif key == ord('b'):
 			line_offset -= max_y
-			if line_offset < 0:
-				line_offset += max_y
 		elif key == ord('j') or key == curses.KEY_DOWN:
 			line_offset += 1
-			if line_offset >= len(help_text):
-				line_offset -= 1
 		elif key == ord('k') or key == curses.KEY_UP:
 			line_offset -= 1
-			if line_offset < 0:
-				line_offset += 1
 		elif key == ord('\n'):
 			g.is_in_help_manual = False
+
+		if line_offset >= len(help_text):
+			line_offset = len(help_text) - 1
+		elif line_offset < 0:
+			line_offset = 0

@@ -1,4 +1,4 @@
-import hashlib
+import highwayhash as hhash
 import config as c
 
 # Non-reversible round function F
@@ -7,19 +7,18 @@ import config as c
 def F(r: int, key: int) -> int:
 	# Convert inputs to bytes
 	r_bytes = r.to_bytes(c.RAND_HALF_BYTES, byteorder="big")
-	k_bytes = key.to_bytes(4, byteorder="big")
+	k_bytes = key.to_bytes(32, byteorder="big")
 
 	# Hash using SHA-256 (extending via counter if more bits are needed)
 	output_bytes = bytearray()
 	counter = 0
 
 	while len(output_bytes) < c.RAND_HALF_BYTES:
-		h = hashlib.sha256(
-			r_bytes
-			+ k_bytes
-			+ counter.to_bytes(4, byteorder="big")
+		h = hhash.highwayhash_256(
+			k_bytes,
+			r_bytes + counter.to_bytes(4, byteorder="big")
 		)
-		output_bytes.extend(h.digest())
+		output_bytes.extend(h)
 		counter += 1
 
 	# Convert back to an integer masked to exact half bit-length

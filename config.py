@@ -57,6 +57,7 @@ FANCY_ESCAPE = '?'
 # Title that gets displayed in the top left corner
 TITLE = "?bThe Pager of Babel?n"
 
+# Lambda that returns info text in top right
 INFO_MSG = lambda log, entry, page, line: (
 	f"Log ?u{log}?n    Entry ?u{entry}?n    Page ?u{page}?n    Line ?u{line}?n"
 )

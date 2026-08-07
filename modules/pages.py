@@ -7,9 +7,6 @@ from bitarray import bitarray
 from bitarray.util import int2ba
 from bitarray.util import ba2int
 
-from debug import DebugLog
-log = DebugLog()
-
 current_page = 0
 current_entry = 0
 current_log = 0
@@ -48,8 +45,6 @@ def draw_babel() -> None:
 
 	# First page
 	draw_page(st, max_y, max_x, line_offset, 0)
-
-	log.log("-"* 80)
 
 	# Stop if only one page is visible
 	if line_offset == 0:
@@ -102,7 +97,6 @@ def draw_page(
 				st_ba[:0] = bitarray(pad_len)
 				char_buffer.extend(st_ba)
 				cached_data[cache_idx].extend(st_ba)
-				log.log(f"{line_offset}: {st_ba}")
 
 				# Remember last st to be able to generate more chunks
 				cached_last_st[cache_idx] = st

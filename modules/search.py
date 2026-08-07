@@ -61,7 +61,7 @@ def search(raw_input: str) -> tuple[int, int, int]:
 	# Fill chunk with random characters
 	sanitised_input += [
 		random.randint(0, len(c.ALPHABET) - 1) for i in range(
-			int(c.RAND_OUT_BIT_LENGTH / c.ALPHABET_BITS) - len(sanitised_input)
+			(c.RAND_OUT_BIT_LENGTH // c.ALPHABET_BITS) - len(sanitised_input)
 		)
 	]
 

@@ -107,7 +107,7 @@ def display_found(found_location: tuple[int, int, int]) -> None:
 	gfx.draw_info("?bSearch?n")
 	gfx.draw_on_window(g.footer_win, 0, 0, ':')
 
-	g.stdscr.move(g.MAX_Y - 1, 1)
+	g.stdscr.move(g.stdscr.getmaxyx()[0] - 1, 1)
 	curses.curs_set(1)
 	g.babel_win.noutrefresh()
 

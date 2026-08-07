@@ -42,7 +42,7 @@ def show_manual() -> None:
 				help_text[line + line_offset]
 			)
 
-		g.stdscr.move(g.MAX_Y - 1, 1)
+		g.stdscr.move(g.stdscr.getmaxyx()[0] - 1, 1)
 		curses.curs_set(1)
 		g.babel_win.noutrefresh()
 

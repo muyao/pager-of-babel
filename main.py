@@ -10,7 +10,9 @@ import modules.pages as pg
 def main(s: curses.window) -> int:
 	g.init(s)
 
-	if g.MAX_X < 80:
+	max_y, max_x = g.stdscr.getmaxyx()
+
+	if max_x < 80:
 		raise Exception("Window too small. Must be at least 80 chars wide")
 
 
@@ -26,7 +28,7 @@ def main(s: curses.window) -> int:
 	while g.is_running:
 
 		# Crash if window gets resized
-		if g.stdscr.getmaxyx() != (g.MAX_Y, g.MAX_X):
+		if g.stdscr.getmaxyx() != (max_y, max_x):
 			raise Exception("Window resized")
 
 		# Graphics stuff
@@ -38,11 +40,11 @@ def main(s: curses.window) -> int:
 		gfx.draw_info(info)
 		gfx.draw_on_window(g.footer_win, 0, 0, ':')
 
-		# Babel text can go from row 2 to row g.MAX_Y - 4
+		# Babel text can go from row 2 to row max_y - 4
 		pg.draw_babel()
 
 		# Move cursor to after the ':'
-		g.stdscr.move(g.MAX_Y - 1, 1)
+		g.stdscr.move(max_y - 1, 1)
 
 		# Show cursor
 		curses.curs_set(1)

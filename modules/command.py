@@ -10,11 +10,13 @@ def input_command():
 	# Show characters as user types them
 	curses.echo()
 
+	max_y, max_x = g.stdscr.getmaxyx()
+
 	# Write a '>'
-	g.stdscr.addstr(g.MAX_Y - 1, 0, '>')
+	g.stdscr.addstr(max_y - 1, 0, '>')
 
 	# Read up to 32 characters of input
-	raw_input = g.stdscr.getstr(g.MAX_Y - 1, 1, c.MAX_CMD_LENGTH)
+	raw_input = g.stdscr.getstr(max_y - 1, 1, c.MAX_CMD_LENGTH)
 
 	# Hide typed characters
 	curses.noecho()

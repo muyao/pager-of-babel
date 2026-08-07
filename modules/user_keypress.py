@@ -6,12 +6,7 @@ import modules.globals as g
 import modules.help_manual as help_manual
 import modules.pages as pg
 
-import time
-import debug
-
 def handle_keypress(key: int) -> None:
-
-	debug.last = time.perf_counter()
 
 	if key == ord(':'):
 		# Get command input

@@ -8,8 +8,6 @@ import modules.graphics as gfx
 import modules.helpers as h
 import modules.pages as pg
 import modules.random as rand
-from bitarray.util import ba2int
-from bitarray.util import int2ba
 
 def show_search_screen() -> None:
 
@@ -74,7 +72,7 @@ def search(raw_input: str) -> tuple[int, int, int]:
 		s += alpha_idx
 
 	# Find seed
-	s = ba2int(rand.unrandom(int2ba(s)))
+	s = rand.unrandom(s)
 
 	# Turn seed into page, entry and log
 	page = s % c.PAGES_PER_ENTRY

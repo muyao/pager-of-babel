@@ -7,6 +7,9 @@ import modules.graphics as gfx
 import modules.helpers as h
 import modules.pages as pg
 
+import time
+import debug
+
 def main(s: curses.window) -> int:
 	g.init(s)
 
@@ -53,6 +56,9 @@ def main(s: curses.window) -> int:
 
 		# Refresh all
 		curses.doupdate()
+
+		if debug.last != 0:
+			raise Exception(f"Time: {time.perf_counter() - debug.last}")
 
 		# Handle key presses
 		key = g.stdscr.getch()

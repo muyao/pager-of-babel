@@ -4,8 +4,11 @@ import modules.globals as g
 import modules.random as rand
 from pathlib import Path
 from bitarray import bitarray
-from bitarray.util import ba2int
 from bitarray.util import int2ba
+from bitarray.util import ba2int
+
+from debug import DebugLog
+log = DebugLog()
 
 current_page = 0
 current_entry = 0
@@ -46,6 +49,8 @@ def draw_babel() -> None:
 	# First page
 	draw_page(st, max_y, max_x, line_offset, 0)
 
+	log.log("-"* 80)
+
 	# Stop if only one page is visible
 	if line_offset == 0:
 		return
@@ -58,6 +63,7 @@ def draw_babel() -> None:
 
 	# Second page
 	draw_page(st, max_y, max_x, line_offset - max_y, 1)
+
 
 def draw_page(
 	st: int, max_y: int, max_x: int, off: int, cache_idx: int
@@ -91,8 +97,12 @@ def draw_page(
 				st = rand.random(st)
 
 				# Add st to char_buffer and cache
-				char_buffer.extend(int2ba(st))
-				cached_data[cache_idx].extend(int2ba(st))
+				st_ba = int2ba(st)
+				pad_len = -len(st_ba) % c.ALPHABET_BITS
+				st_ba[:0] = bitarray(pad_len)
+				char_buffer.extend(st_ba)
+				cached_data[cache_idx].extend(st_ba)
+				log.log(f"{line_offset}: {st_ba}")
 
 				# Remember last st to be able to generate more chunks
 				cached_last_st[cache_idx] = st

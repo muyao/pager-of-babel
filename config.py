@@ -11,7 +11,10 @@ ALPHABET_BITS = int(math.log2(len(ALPHABET)))
 ALPHABET_CHAR_MASK = (1 << ALPHABET_BITS) - 1
 
 # How many bits outputted by random
-RAND_OUT_BIT_LENGTH = 1 << 16
+RAND_OUT_BIT_LENGTH = 1 << 5
+
+# Random output mask
+RAND_OUT_MASK = (1 << RAND_OUT_BIT_LENGTH) - 1
 
 # Half len
 RAND_HALF_BITS = RAND_OUT_BIT_LENGTH // 2

@@ -1,4 +1,4 @@
-import hashlib
+import xxhash
 import config as c
 
 # Non-reversible round function F
@@ -7,20 +7,25 @@ import config as c
 def F(r: int, key: int) -> int:
 	# Convert inputs to bytes
 	r_bytes = r.to_bytes(c.RAND_HALF_BYTES, byteorder="big")
-	k_bytes = key.to_bytes(4, byteorder="big")
 
 	# Hash using SHA-256 (extending via counter if more bits are needed)
 	output_bytes = bytearray()
 	counter = 0
 
 	while len(output_bytes) < c.RAND_HALF_BYTES:
-		h = hashlib.sha256(
+		h1 = xxhash.xxh128(
 			r_bytes
-			+ k_bytes
-			+ counter.to_bytes(4, byteorder="big")
+			+ counter.to_bytes(4, byteorder="big"),
+			seed=key
 		)
-		output_bytes.extend(h.digest())
 		counter += 1
+		h2 = xxhash.xxh128(
+			r_bytes
+			+ counter.to_bytes(4, byteorder="big"),
+			seed=key
+		)
+		counter += 1
+		output_bytes.extend(h1.digest() + h2.digest())
 
 	# Convert back to an integer masked to exact half bit-length
 	res = int.from_bytes(output_bytes[:c.RAND_HALF_BYTES], byteorder="big")

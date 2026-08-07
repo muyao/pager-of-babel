@@ -1,2 +1,6 @@
 bitarray==3.10.1
+cffi==2.1.1
+highwayhash-cffi==0.1.6
 pybase62==1.0.0
+pycparser==3.0
+xxhash==3.8.1

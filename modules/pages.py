@@ -13,9 +13,9 @@ current_log = 0
 line_offset = 0
 
 # Cache the pages to make scrolling faster
-cached_ids = [0, 0]
-cached_data: bitarray = [bitarray(), bitarray()]
-cached_last_st = [0, 0]
+cached_ids = [bitarray(), bitarray()]
+cached_data = [bitarray(), bitarray()]
+cached_last_st = [bitarray(), bitarray()]
 
 # Read initial seed from resources/seed.json
 with open(
@@ -31,7 +31,7 @@ with open(
 def draw_babel() -> None:
 
 	# Seed for first page
-	st = (
+	st = int2ba(
 		c.PAGES_PER_ENTRY * (c.ENTRIES_PER_LOG * current_log + current_entry)
 		+ current_page
 	)
@@ -51,7 +51,7 @@ def draw_babel() -> None:
 		return
 
 	# Seed for second page
-	st = (
+	st = int2ba(
 		c.PAGES_PER_ENTRY * (c.ENTRIES_PER_LOG * current_log + current_entry)
 		+ current_page + 1
 	)
@@ -61,7 +61,7 @@ def draw_babel() -> None:
 
 
 def draw_page(
-	st: int, max_y: int, max_x: int, off: int, cache_idx: int
+	st: bitarray, max_y: int, max_x: int, off: int, cache_idx: int
 ) -> None:
 
 	# If starting state is known, read from cache
@@ -74,7 +74,7 @@ def draw_page(
 		char_buffer = bitarray()
 		cached_data[cache_idx] = bitarray()
 		cached_ids[cache_idx] = st
-		cached_last_st[cache_idx] = 0
+		cached_last_st[cache_idx] = bitarray()
 
 	# Iterate through each pixel
 	for y in range(max_y):
@@ -92,9 +92,8 @@ def draw_page(
 				st = rand.random(st)
 
 				# Add st to char_buffer and cache
-				st_ba = int2ba(st)
+				st_ba = st.copy()
 				pad_len = -len(st_ba) % c.ALPHABET_BITS
-				st_ba[:0] = bitarray(pad_len)
 				char_buffer.extend(st_ba)
 				cached_data[cache_idx].extend(st_ba)
 

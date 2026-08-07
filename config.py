@@ -8,7 +8,7 @@ ALPHABET = "    abcdefghijklmnopqrstuvwxyz,."
 ALPHABET_BITS = int(math.log2(len(ALPHABET)))
 
 # How many bits outputted by random
-RAND_OUT_BIT_LENGTH = 1 << 5
+RAND_OUT_BIT_LENGTH = 1 << 16
 
 # Half len
 RAND_HALF_BITS = RAND_OUT_BIT_LENGTH // 2

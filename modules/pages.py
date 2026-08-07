@@ -3,6 +3,9 @@ import config as c
 import modules.globals as g
 import modules.random as rand
 from pathlib import Path
+from bitarray import bitarray
+from bitarray.util import ba2int
+from bitarray.util import int2ba
 
 current_page = 0
 current_entry = 0
@@ -11,7 +14,7 @@ line_offset = 0
 
 # Cache the pages to make scrolling faster
 cached_ids = [0, 0]
-cached_data = [0, 0]
+cached_data: bitarray = [bitarray(), bitarray()]
 cached_last_st = [0, 0]
 
 # Read initial seed from resources/seed.json
@@ -62,13 +65,13 @@ def draw_page(
 
 	# If starting state is known, read from cache
 	if st == cached_ids[cache_idx]:
-		char_buffer = cached_data[cache_idx]
+		char_buffer = cached_data[cache_idx].copy()
 		st = cached_last_st[cache_idx]
 
 	# Otherwise, start from beginning and clear cache slot
 	else:
-		char_buffer = 1
-		cached_data[cache_idx] = 1
+		char_buffer = bitarray()
+		cached_data[cache_idx] = bitarray()
 		cached_ids[cache_idx] = st
 		cached_last_st[cache_idx] = 0
 
@@ -82,30 +85,14 @@ def draw_page(
 		for x in range(max_x):
 
 			# If buffer is exhausted, generate new one
-			if char_buffer.bit_length() - 1 < c.ALPHABET_BITS:
+			if len(char_buffer) < c.ALPHABET_BITS:
 
 				# Generate next chunk
 				st = rand.random(st)
 
-				# Add st to char_buffer
-				old_len = char_buffer.bit_length() - 1
-				old_mask = (1 << old_len) - 1
-				# Remove the 1 at the beginning (0b101110 -> 0b01110)
-				char_buffer &= old_mask
-				# Append st to char_buffer
-				char_buffer |= st << old_len
-				# Re-add the 1 to the beginning (0b01110 -> 0b101110)
-				char_buffer |= old_mask + 1
-
-				# Do the same for cached_data
-				old_len = cached_data[cache_idx].bit_length() - 1
-				old_mask = (1 << old_len) - 1
-				# Remove the 1 at the beginning (0b101110 -> 0b01110)
-				cached_data[cache_idx] &= old_mask
-				# Append st to char_buffer
-				cached_data[cache_idx] |= st << old_len
-				# Re-add the 1 to the beginning (0b01110 -> 0b101110)
-				cached_data[cache_idx] |= old_mask + 1
+				# Add st to char_buffer and cache
+				char_buffer.extend(int2ba(st))
+				cached_data[cache_idx].extend(int2ba(st))
 
 				# Remember last st to be able to generate more chunks
 				cached_last_st[cache_idx] = st
@@ -113,8 +100,8 @@ def draw_page(
 			# Only if row is not offscreen (top)
 			if y - off >= 0:
 				# Write char
-				char = c.ALPHABET[char_buffer & c.ALPHABET_CHAR_MASK]
+				char = c.ALPHABET[ba2int(char_buffer[:c.ALPHABET_BITS])]
 				g.babel_win.addstr(y - off, x, char)
 
-			# Shift char_buffer right to remove already used bits
-			char_buffer >>= c.ALPHABET_BITS
+			# Remove already used bits
+			del char_buffer[:c.ALPHABET_BITS]

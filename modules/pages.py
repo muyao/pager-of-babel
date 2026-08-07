@@ -60,9 +60,12 @@ def draw_page(
 	st: int, max_y: int, max_x: int, off: int, cache_idx: int
 ) -> None:
 
+	# If starting state is known, read from cache
 	if st == cached_ids[cache_idx]:
 		char_buffer = cached_data[cache_idx]
 		st = cached_last_st[cache_idx]
+
+	# Otherwise, start from beginning and clear cache slot
 	else:
 		char_buffer = 1
 		cached_data[cache_idx] = 1
@@ -113,4 +116,5 @@ def draw_page(
 				char = c.ALPHABET[char_buffer & c.ALPHABET_CHAR_MASK]
 				g.babel_win.addstr(y - off, x, char)
 
+			# Shift char_buffer right to remove already used bits
 			char_buffer >>= c.ALPHABET_BITS

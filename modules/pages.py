@@ -3,12 +3,6 @@ import config as c
 import modules.globals as g
 import modules.random as rand
 from pathlib import Path
-from bitarray import bitarray
-from bitarray.util import int2ba
-from bitarray.util import ba2int
-
-from debug import DebugLog
-log = DebugLog()
 
 current_page = 0
 current_entry = 0
@@ -49,8 +43,6 @@ def draw_babel() -> None:
 	# First page
 	draw_page(st, max_y, max_x, line_offset, 0)
 
-	log.log("-"* 80)
-
 	# Stop if only one page is visible
 	if line_offset == 0:
 		return
@@ -63,7 +55,6 @@ def draw_babel() -> None:
 
 	# Second page
 	draw_page(st, max_y, max_x, line_offset - max_y, 1)
-
 
 def draw_page(
 	st: int, max_y: int, max_x: int, off: int, cache_idx: int
@@ -96,13 +87,25 @@ def draw_page(
 				# Generate next chunk
 				st = rand.random(st)
 
-				# Add st to char_buffer and cache
-				st_ba = int2ba(st)
-				pad_len = -len(st_ba) % c.ALPHABET_BITS
-				st_ba[:0] = bitarray(pad_len)
-				char_buffer.extend(st_ba)
-				cached_data[cache_idx].extend(st_ba)
-				log.log(f"{line_offset}: {st_ba}")
+				# Add st to char_buffer
+				old_len = char_buffer.bit_length() - 1
+				old_mask = (1 << old_len) - 1
+				# Remove the 1 at the beginning (0b101110 -> 0b01110)
+				char_buffer &= old_mask
+				# Append st to char_buffer
+				char_buffer |= st << old_len
+				# Re-add the 1 to the beginning (0b01110 -> 0b101110)
+				char_buffer |= old_mask + 1
+
+				# Do the same for cached_data
+				old_len = cached_data[cache_idx].bit_length() - 1
+				old_mask = (1 << old_len) - 1
+				# Remove the 1 at the beginning (0b101110 -> 0b01110)
+				cached_data[cache_idx] &= old_mask
+				# Append st to char_buffer
+				cached_data[cache_idx] |= st << old_len
+				# Re-add the 1 to the beginning (0b01110 -> 0b101110)
+				cached_data[cache_idx] |= old_mask + 1
 
 				# Remember last st to be able to generate more chunks
 				cached_last_st[cache_idx] = st

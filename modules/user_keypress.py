@@ -18,7 +18,7 @@ def handle_keypress(key: int) -> None:
 		# Process entered command
 		cmd.process_command(command)
 
-	elif key in (ord(' '), ord('f'), ord('z')):
+	elif key in (ord(' '), ord('z')):
 		pg.current_page += 1
 
 		# Page# cannot go past PAGES_PER_LOG

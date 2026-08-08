@@ -8,6 +8,9 @@ import modules.pages as pg
 
 def handle_keypress(key: int) -> None:
 
+	max_y, max_x = g.babel_win.getmaxyx()
+	max_y -= 1
+
 	if key == ord(':'):
 		# Get command input
 		command = cmd.input_command()
@@ -15,7 +18,7 @@ def handle_keypress(key: int) -> None:
 		# Process entered command
 		cmd.process_command(command)
 
-	elif key == ord(' '):
+	elif key in (ord(' '), ord('f'), ord('z')):
 		pg.current_page += 1
 
 		# Page# cannot go past PAGES_PER_LOG
@@ -24,7 +27,7 @@ def handle_keypress(key: int) -> None:
 		if pg.current_page >= c.PAGES_PER_ENTRY:
 			pg.line_offset = 0
 
-	elif key == ord('b'):
+	elif key in (ord('b'), ord('w')):
 		pg.current_page -= 1
 
 		# Make sure page is at least 1
@@ -44,22 +47,22 @@ def handle_keypress(key: int) -> None:
 		# Find screen
 		search.show_search_screen()
 
-	elif key == ord('j') or key == curses.KEY_DOWN:
+	elif key in (ord('j'), ord('e'), curses.KEY_DOWN):
 		# Stop if we are at the end
 		if pg.current_page == c.PAGES_PER_ENTRY:
 			return
 
 		pg.line_offset += 1
-		if pg.line_offset == g.babel_win.getmaxyx()[0] - 1:
+		if pg.line_offset == max_y:
 			pg.line_offset = 0
 			pg.current_page += 1
 
-	elif key == ord('k') or key == curses.KEY_UP:
+	elif key in (ord('k'), ord('y'), curses.KEY_UP):
 		# Stop if we reach page 1
 		if pg.current_page == 1 and pg.line_offset == 0:
 			return
 
 		pg.line_offset -= 1
 		if pg.line_offset < 0:
-			pg.line_offset = g.babel_win.getmaxyx()[0] - 2
+			pg.line_offset = max_y - 1
 			pg.current_page -= 1

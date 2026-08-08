@@ -120,3 +120,4 @@ def display_found(found_location: tuple[int, int, int]) -> None:
 		return
 
 	pg.current_log, pg.current_entry, pg.current_page = found_location
+	pg.line_offset = 0

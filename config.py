@@ -59,7 +59,8 @@ TITLE = "?bThe Pager of Babel?n"
 
 # Lambda that returns info text in top right
 INFO_MSG = lambda log, entry, page, line: (
-	f"Log ?u{log}?n    Entry ?u{entry}?n    Page ?u{page}?n    Line ?u{line}?n"
+	f"Log ?u{log}?n    Entry ?u{entry}?n    "
+	f"Page ?u{page}?n    Line ?u{line + 1}?n"
 )
 
 # Always replace this char with a space in babel

@@ -94,7 +94,7 @@ def display_found(found_location: tuple[int, int, int]) -> None:
 
 	# Encode entry to hex for display
 	entry_str = hex(entry)
-	entry_str = f"{entry_str[2:6]}-{entry_str[6:10]}"
+	entry_str = entry_str[2:]
 
 	# Display found
 	g.babel_win.clear()

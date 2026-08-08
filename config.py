@@ -29,7 +29,7 @@ RAND_ROUND_KEYS = [0x1a2b3c4d, 0x5e6f7abb, 0x9c0d1e2f, 0x3a4b5c6d]
 MAX_PAGE_LENGTH = 3
 
 # Max entry name length
-MAX_ENTRY_LENGTH = 10
+MAX_ENTRY_LENGTH = 8
 
 # Max log name length
 MAX_LOG_DISPLAY_LENGTH = 20
@@ -38,7 +38,7 @@ MAX_LOG_DISPLAY_LENGTH = 20
 PAGES_PER_ENTRY = 10 ** MAX_PAGE_LENGTH - 1
 
 # Amount of entries per log. Subtract 2 from entry len to remove the 2x '-'
-ENTRIES_PER_LOG = 16 ** (MAX_ENTRY_LENGTH - 2) - 1
+ENTRIES_PER_LOG = 16 ** MAX_ENTRY_LENGTH - 1
 
 # Max length of search phrase
 MAX_SEARCH_LENGTH = RAND_OUT_BIT_LENGTH // ALPHABET_BITS

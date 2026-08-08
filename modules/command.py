@@ -52,7 +52,6 @@ def process_command(command: str) -> None:
 		cmd_body = command[6:]
 		if len(cmd_body) > c.MAX_ENTRY_LENGTH:
 			raise Exception("Bad entry format")
-		cmd_body = cmd_body.replace("-", "")
 		try:
 			targ_entry = int(cmd_body, base=16)
 		except:

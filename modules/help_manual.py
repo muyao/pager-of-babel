@@ -9,7 +9,7 @@ def show_manual() -> None:
 	max_y -= 1
 
 	# Info
-	gfx.draw_info("Press Enter to exit    ?bHelp Manual?n")
+	gfx.draw_info("Press Enter for more    Press Q to exit    ?bHelp Manual?n")
 	gfx.draw_on_window(g.footer_win, 0, 0, ':')
 
 	# Read from resources/help.txt
@@ -55,11 +55,11 @@ def show_manual() -> None:
 			line_offset += max_y
 		elif key == ord('b'):
 			line_offset -= max_y
-		elif key == ord('j') or key == curses.KEY_DOWN:
+		elif key == ord('j') or key == curses.KEY_DOWN or key == ord('\n'):
 			line_offset += 1
 		elif key == ord('k') or key == curses.KEY_UP:
 			line_offset -= 1
-		elif key == ord('\n'):
+		elif key == ord('q'):
 			g.is_in_help_manual = False
 
 		if line_offset >= len(help_text):

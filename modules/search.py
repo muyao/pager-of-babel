@@ -85,13 +85,17 @@ def search(raw_input: str) -> tuple[int, int, int]:
 
 def display_found(found_location: tuple[int, int, int]) -> None:
 
+	# Unpack tuple
 	log, entry, page = found_location
 
+	# Encode integer log into base62 for display
 	log_str = base62.encode(log)
 	log_str = h.cut_off_end(log_str, c.MAX_LOG_DISPLAY_LENGTH)
 
+	# Encode entry to hex for display
 	entry_str = hex(entry)
 
+	# Display found
 	g.babel_win.clear()
 	gfx.addstrf(g.babel_win, 0, 0, "?bFound at:?n")
 	gfx.addstrf(g.babel_win, 1, 0, f"Log ?u{log_str}?n")
@@ -107,11 +111,12 @@ def display_found(found_location: tuple[int, int, int]) -> None:
 	gfx.draw_info("?bSearch?n")
 	gfx.draw_on_window(g.footer_win, 0, 0, ':')
 
+	# Move cursor to after the ':'
 	g.stdscr.move(g.stdscr.getmaxyx()[0] - 1, 1)
 	curses.curs_set(1)
 
+	# Refresh screen
 	g.babel_win.noutrefresh()
-
 	curses.doupdate()
 
 	# Listen for user input
@@ -119,5 +124,6 @@ def display_found(found_location: tuple[int, int, int]) -> None:
 	if key != ord('\n'):
 		return
 
+	# If key is Enter, go to found location
 	pg.current_log, pg.current_entry, pg.current_page = found_location
 	pg.line_offset = 0

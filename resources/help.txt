@@ -9,42 +9,41 @@
 
 ?bCONTROLS?n
 
-     ?bb?n       Previous page
+     ?bb?n, ?bw?n    Previous page
 
-     ?bf?n       Find phrase
+     ?be?n, ?bj?n, ?bdown arrow?n,
+             Down one line
+
+     ?bf?n       Search for phrase
 
      ?bh?n       Show help manual
 
-     ?bspace?n   Next page
+     ?bk?n, ?by?n, ?bup arrow?n
+             Up one line
 
      ?bq?n       Quit
+
+     ?bspace?n, ?bz?n
+             Next page
 
      ?b:?n       Enter command
 
 ?bCOMMANDS?n
 
+     ?bentry?n ?uentry?n
+             Go to entry
+
      ?bf?n ?uphrase?n, ?bsearch?n ?uphrase?n
-             Find phrase. Returns 
+             Search for phrase
 
      ?bh?n, ?bhelp?n
              Display this help screen
+
+     ?blog?n ?ulog?n
+             Go to log
 
      ?bq?n, ?bquit?n
              Quit
 
      ?b<any number>?n
              Jump to page
-
-?bHELP MANUAL?n
-
-     ?bb?n       Previous page
-
-     ?benter?n   Exit help manual
-
-     ?bj?n, ?bdown arrow?n
-             Down one line
-
-     ?bk?n, ?bup arrow?n
-             Up one line
-
-     ?bspace?n   Next page

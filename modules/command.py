@@ -1,3 +1,4 @@
+import base62
 import curses
 import config as c
 import modules.search as search
@@ -22,7 +23,7 @@ def input_command():
 	curses.noecho()
 
 	# Sanitise input before returning
-	return raw_input.decode("utf-8").strip().lower()
+	return raw_input.decode("utf-8").strip()
 
 def process_command(command: str) -> None:
 	# Quit if q or quit
@@ -45,3 +46,28 @@ def process_command(command: str) -> None:
 
 	elif command == 'f' or command == "search":
 		search.show_search_screen()
+
+	# Change entry
+	elif command.startswith("entry "):
+		cmd_body = command[6:]
+		if len(cmd_body) > c.MAX_ENTRY_LENGTH:
+			raise Exception("Bad entry format")
+		cmd_body = cmd_body.replace("-", "")
+		try:
+			targ_entry = int(cmd_body, base=16)
+		except:
+			raise Exception("Bad entry format")
+		pg.current_entry = targ_entry
+		pg.current_page = 1
+		pg.line_offset = 0
+
+	elif command.startswith("log "):
+		cmd_body = command[4:]
+		try:
+			targ_log = base62.decode(cmd_body)
+		except:
+			raise Exception("Bad log format")
+		pg.current_log = targ_log
+		pg.current_entry = 0
+		pg.current_page = 1
+		pg.line_offset = 0

@@ -109,6 +109,7 @@ def draw_page(
 				char = c.ALPHABET[ba2int(
 					char_buffer[chrbuf_idx:chrbuf_idx + c.ALPHABET_BITS]
 				)]
+				char = ' ' if char == c.FORCED_WHITESPACE_CHAR else char
 				g.babel_win.addstr(y - off, x, char)
 
 			# Remove already used bits

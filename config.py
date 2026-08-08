@@ -2,7 +2,7 @@ import curses
 import math
 
 # Alphabet to use. Must be 32 chars long
-ALPHABET = "    abcdefghijklmnopqrstuvwxyz,."
+ALPHABET = "   _abcdefghijklmnopqrstuvwxyz,."
 
 # How many bits long the alphabet is.
 ALPHABET_BITS = int(math.log2(len(ALPHABET)))
@@ -61,3 +61,6 @@ TITLE = "?bThe Pager of Babel?n"
 INFO_MSG = lambda log, entry, page, line: (
 	f"Log ?u{log}?n    Entry ?u{entry}?n    Page ?u{page}?n    Line ?u{line}?n"
 )
+
+# Always replace this char with a space in babel
+FORCED_WHITESPACE_CHAR = '_'

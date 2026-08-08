@@ -24,9 +24,7 @@ def show_search_screen() -> None:
 	box.edit(h.terminate_check)
 
 	# Get text result
-	raw_input = box.gather().strip().replace("_", " ")
-	# Strip leading whitespace
-	raw_input = raw_input.lstrip()
+	raw_input = box.gather().strip()
 
 	# Limit input to MAX_SEARCH_LENGTH
 	if len(raw_input) > c.MAX_SEARCH_LENGTH:

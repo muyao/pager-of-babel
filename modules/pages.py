@@ -66,15 +66,18 @@ def draw_page(
 
 	# If starting state is known, read from cache
 	if st == cached_ids[cache_idx]:
-		char_buffer = cached_data[cache_idx].copy()
 		st = cached_last_st[cache_idx]
 
 	# Otherwise, start from beginning and clear cache slot
 	else:
-		char_buffer = bitarray()
 		cached_data[cache_idx] = bitarray()
 		cached_ids[cache_idx] = st
 		cached_last_st[cache_idx] = 0
+
+	# Char buffer is ref to cached_data
+	char_buffer = cached_data[cache_idx]
+
+	chrbuf_idx = 0
 
 	# Iterate through each pixel
 	for y in range(max_y):
@@ -86,17 +89,16 @@ def draw_page(
 		for x in range(max_x):
 
 			# If buffer is exhausted, generate new one
-			if len(char_buffer) < c.ALPHABET_BITS:
+			if len(char_buffer) - chrbuf_idx < c.ALPHABET_BITS:
 
 				# Generate next chunk
 				st = rand.random(st)
 
-				# Add st to char_buffer and cache
+				# Add st to char_buffer
 				st_ba = int2ba(st)
 				pad_len = -len(st_ba) % c.ALPHABET_BITS
 				st_ba[:0] = bitarray(pad_len)
 				char_buffer.extend(st_ba)
-				cached_data[cache_idx].extend(st_ba)
 
 				# Remember last st to be able to generate more chunks
 				cached_last_st[cache_idx] = st
@@ -104,8 +106,10 @@ def draw_page(
 			# Only if row is not offscreen (top)
 			if y - off >= 0:
 				# Write char
-				char = c.ALPHABET[ba2int(char_buffer[:c.ALPHABET_BITS])]
+				char = c.ALPHABET[ba2int(
+					char_buffer[chrbuf_idx:chrbuf_idx + c.ALPHABET_BITS]
+				)]
 				g.babel_win.addstr(y - off, x, char)
 
 			# Remove already used bits
-			del char_buffer[:c.ALPHABET_BITS]
+			chrbuf_idx += c.ALPHABET_BITS
